@@ -16,7 +16,7 @@ function drawTabs(){
   document.getElementById("tabs").innerHTML=TABS.map(t=>`<button type="button" data-tab="${t[0]}" ${t[0]===tab&&!editing?'aria-current="page"':""}><i aria-hidden="true">${t[2]}</i>${t[1]}</button>`).join("");
 }
 function header(){
-  return `<header><h1>老大後台<small>福信貓老大・原型</small></h1><a class="link" href="index.html" target="_blank" rel="noopener">看前台 ↗</a></header>`;
+  return `<header><h1><img src="img/logo.svg" alt="" width="40" height="40"><span>老大後台<small>福信貓老大（原型）</small></span></h1><a class="link" href="index.html" target="_blank" rel="noopener">看前台 ↗</a></header>`;
 }
 
 /* ---------- 列表 ---------- */

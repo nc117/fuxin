@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="福信貓老大標誌：舉起肉球打招呼的貓">
+  <defs><clipPath id="fxc"><circle cx="50" cy="50" r="46"/></clipPath></defs>
+  <circle cx="50" cy="50" r="46" fill="#BFDDF2"/>
+  <g clip-path="url(#fxc)"><g transform="translate(1 10) scale(.88)">
+  <g stroke="#2E2A4F" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M22 120 C22 96 36 84 57 84 C78 84 92 96 92 120Z" fill="#F9D9A6"/>
+    <path d="M30 54 C30 40 33 30 33 15 L47 26 C53 24.5 61 24.5 67 26 L81 15 C81 30 84 40 84 54 C84 74 72 86 57 86 C42 86 30 74 30 54Z" fill="#F9D9A6"/>
+    <path d="M37 24 L37.5 20.5 L43 25Z M77 24 L76.5 20.5 L71 25Z" fill="#F2877E" stroke="none"/>
+    <path d="M13 120 L13 52 C13 41 19 35 25 35 C31 35 37 41 37 52 L37 120" fill="#FFF4C9"/>
+  </g>
+  <g fill="#F2877E">
+    <path d="M20 57 C20 52 30 52 30 57 C30 61 27 63 25 63 C23 63 20 61 20 57Z"/>
+    <circle cx="17.5" cy="47" r="2.6"/><circle cx="22.5" cy="42.5" r="2.6"/><circle cx="28" cy="42.5" r="2.6"/><circle cx="32.5" cy="47" r="2.6"/>
+  </g>
+  <path d="M57 27 C54 36 53 46 55 58 L62 58 C63 46 61 36 57 27Z" fill="#FFF8EC"/><ellipse cx="53" cy="67" rx="8" ry="6.5" fill="#FFF8EC"/><ellipse cx="64" cy="67" rx="8" ry="6.5" fill="#FFF8EC"/>
+  <g fill="#2E2A4F"><ellipse cx="49" cy="54" rx="3.7" ry="4.6"/><ellipse cx="68" cy="54" rx="3.7" ry="4.6"/></g>
+  <circle cx="50.3" cy="52.3" r="1.25" fill="#fff"/><circle cx="69.3" cy="52.3" r="1.25" fill="#fff"/>
+  <path d="M55.6 62.5 h6 l-3 3.3z" fill="#F2877E" stroke="#2E2A4F" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M58.6 65.8 v2.3 M58.6 68.1 q-3.4 3.4 -6.6 1 M58.6 68.1 q3.4 3.4 6.6 1" stroke="#2E2A4F" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="76" cy="65" r="4.2" fill="#F2877E" opacity=".45"/>
+  </g></g>
+  <circle cx="50" cy="50" r="46" fill="none" stroke="#2E2A4F" stroke-width="3.6"/>
+</svg>

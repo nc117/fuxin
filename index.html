@@ -4,6 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>福信貓老大｜高雄無籠家庭貓舍</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFDF6">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="福信貓老大">
+<meta property="og:title" content="福信貓老大｜高雄無籠家庭貓舍">
+<meta property="og:description" content="高雄五層樓透天裡的無籠家庭貓舍。英短、英長、塞爾凱克捲毛貓，滿四個月、三劑疫苗才回新家。">
+<meta property="og:url" content="https://nc117.github.io/fuxin/">
+<meta property="og:image" content="https://nc117.github.io/fuxin/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="福信貓老大的貓咪們">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nc117.github.io/fuxin/og.jpg">
 <meta name="description" content="高雄五層樓透天裡的無籠家庭貓舍，英國短毛貓、英國長毛貓與塞爾凱克捲毛貓。滿四個月、三劑疫苗、絕育康復才回新家，老大親自開車送到家。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,9 +68,11 @@ body.calm .sticker{border-width:1px}
 
 /* side tabs */
 .side{position:fixed;inset:0 auto 0 0;width:var(--side);padding:28px 0 24px 0;display:flex;flex-direction:column;gap:24px;z-index:30;overflow-y:auto;background:inherit}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;padding:0 22px}
-.logo .face{width:52px;height:52px;border-radius:50%;background:var(--butter);border:var(--bw) solid var(--ink);display:grid;place-items:center;overflow:hidden;flex:none}
-.logo b{font-family:var(--round);font-weight:400;font-size:21px;line-height:1.2}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;padding:0 18px}
+.logo .mark{width:56px;height:56px;flex:none;transition:transform .2s}
+@media (prefers-reduced-motion:no-preference){.logo:hover .mark{transform:rotate(-8deg)}}
+.logo small{display:block;font-family:var(--hand);font-size:13px;color:var(--ink2);margin-top:4px;white-space:nowrap}
+.logo b{display:block;font-family:var(--round);font-weight:400;font-size:21px;line-height:1.15;white-space:nowrap}
 .tabs{display:flex;flex-direction:column;gap:7px}
 .tabs a{margin-right:52px;padding:8px 16px 8px 22px;border:var(--bw) solid var(--ink);border-left:0;border-radius:0 14px 14px 0;text-decoration:none;font-family:var(--round);font-size:16.5px;transition:margin .15s}
 .tabs a:hover{margin-right:46px}
@@ -235,7 +253,7 @@ details p{padding:0 0 16px;color:var(--ink2)}
   main{margin-left:0}
   .top{display:flex;position:sticky;top:0;z-index:20;justify-content:space-between;align-items:center;padding:10px 5vw;background:rgba(255,253,246,.95);backdrop-filter:blur(8px);border-bottom:2px solid var(--ink)}
   .top .logo{padding:0}
-  .top .logo .face{width:40px;height:40px}
+  .top .logo .mark{width:40px;height:40px}
   .burger{width:44px;height:44px;border:var(--bw) solid var(--ink);border-radius:12px;background:#fff;padding:0;display:grid;place-items:center}
   .burger svg{width:20px;height:20px}
   .hero,.split,.prof,.two{grid-template-columns:1fr}
@@ -261,7 +279,7 @@ details p{padding:0 0 16px;color:var(--ink2)}
 </head>
 <body>
 <aside class="side" aria-label="主選單">
-  <a class="logo" href="#home"><span class="face" id="logoFace"></span><b>福信<br>貓老大</b></a>
+  <a class="logo" href="#home"><img class="mark" src="img/logo.svg" alt=""><span><b>福信貓老大</b><small>高雄無籠家庭貓舍</small></span></a>
   <nav class="tabs" id="nav"></nav>
   <div class="side-foot">
     <a class="zone" id="shopLink" href="#" target="_blank" rel="noopener"><b>家長專區 ↗</b><span>福信家長的用品小舖</span></a>
@@ -272,7 +290,7 @@ details p{padding:0 0 16px;color:var(--ink2)}
 <div class="scrim" id="scrim"></div>
 <main>
   <div class="proto" id="proto"><span>標「待確認」的請老大過目。左下角可以切換畫風。<a href="admin.html" style="color:#FFE38A;margin-left:8px">打開老大後台 ↗</a></span><button id="protoX" aria-label="關閉提示">×</button></div>
-  <div class="top"><a class="logo" href="#home"><span class="face" id="logoFace2"></span><b>福信貓老大</b></a><button class="burger" id="burger" aria-label="開啟選單"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button></div>
+  <div class="top"><a class="logo" href="#home"><img class="mark" src="img/logo.svg" alt=""><span><b>福信貓老大</b></span></a><button class="burger" id="burger" aria-label="開啟選單"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button></div>
   <div class="wrap" id="app"></div>
 </main>
 <div class="mbar"><a class="btn home" id="mHome" href="#home" aria-label="回首頁"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7M6 9.5V20h4.5v-5.5h3V20H18V9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="btn" href="#kittens">看小貓</a><a class="btn line" id="mLine" href="#" target="_blank" rel="noopener">LINE 聊聊</a></div>
@@ -498,7 +516,7 @@ function pol(c,i,{small=false}={}){
 const pawSVG=(on)=>`<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="${on?"#F2877E":"#E7E2F2"}"><ellipse cx="12" cy="16" rx="5" ry="4.2"/><circle cx="6" cy="10" r="2.3"/><circle cx="10" cy="6.5" r="2.3"/><circle cx="14" cy="6.5" r="2.3"/><circle cx="18" cy="10" r="2.3"/></g></svg>`;
 function ticket(){
   return `<footer><div class="ticket">
-    <div class="a"><p class="note">福信貓老大　參觀券</p><h2 class="h2" style="margin:2px 0 16px">來透天找老大玩</h2>
+    <div class="a"><p class="note" style="display:flex;align-items:center;gap:8px"><img src="img/logo.svg" alt="" width="34" height="34">福信貓老大　參觀券</p><h2 class="h2" style="margin:2px 0 16px">來透天找老大玩</h2>
       <dl class="dl"><dt>地址</dt><dd>${esc(SITE.address)}</dd><dt>時間</dt><dd>${esc(SITE.hours)}，一次一組</dd><dt>許可證</dt><dd>${lic()}</dd>
       <dt>社群</dt><dd><a href="${SITE.threads}" target="_blank" rel="noopener">Threads</a>　<a href="${SITE.facebook}" target="_blank" rel="noopener">Facebook</a></dd></dl></div>
     <div class="b"><span style="font-family:var(--round);font-size:18px">撕下這張，LINE 約時間</span><a class="btn line" href="${lineUrl()}" target="_blank" rel="noopener">LINE ${esc(SITE.lineId)}</a><span class="sub" style="font-size:13px">一定要本人來互動喔，這是我們認識彼此的方式。</span></div>
@@ -729,7 +747,6 @@ function bind(){
 function setMode(m){ document.body.classList.toggle("calm",m==="calm"); document.querySelectorAll(".mode button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===m)); try{localStorage.setItem("fx-mode",m);}catch{} }
 document.querySelector(".mode").onclick=e=>{const b=e.target.closest("button"); if(b) setMode(b.dataset.mode);};
 try{ if(localStorage.getItem("fx-mode")==="calm") setMode("calm"); }catch{}
-["logoFace","logoFace2"].forEach(i=>document.getElementById(i).innerHTML=boss(52));
 ["sideLine","mLine"].forEach(i=>document.getElementById(i).href=lineUrl());
 document.getElementById("shopLink").href=SITE.shopUrl;
 document.getElementById("burger").onclick=()=>document.body.classList.add("menu");

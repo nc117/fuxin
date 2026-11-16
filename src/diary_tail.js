@@ -37,7 +37,7 @@ function pol(c,i,{small=false}={}){
 const pawSVG=(on)=>`<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="${on?"#F2877E":"#E7E2F2"}"><ellipse cx="12" cy="16" rx="5" ry="4.2"/><circle cx="6" cy="10" r="2.3"/><circle cx="10" cy="6.5" r="2.3"/><circle cx="14" cy="6.5" r="2.3"/><circle cx="18" cy="10" r="2.3"/></g></svg>`;
 function ticket(){
   return `<footer><div class="ticket">
-    <div class="a"><p class="note">福信貓老大　參觀券</p><h2 class="h2" style="margin:2px 0 16px">來透天找老大玩</h2>
+    <div class="a"><p class="note" style="display:flex;align-items:center;gap:8px"><img src="img/logo.svg" alt="" width="34" height="34">福信貓老大　參觀券</p><h2 class="h2" style="margin:2px 0 16px">來透天找老大玩</h2>
       <dl class="dl"><dt>地址</dt><dd>${esc(SITE.address)}</dd><dt>時間</dt><dd>${esc(SITE.hours)}，一次一組</dd><dt>許可證</dt><dd>${lic()}</dd>
       <dt>社群</dt><dd><a href="${SITE.threads}" target="_blank" rel="noopener">Threads</a>　<a href="${SITE.facebook}" target="_blank" rel="noopener">Facebook</a></dd></dl></div>
     <div class="b"><span style="font-family:var(--round);font-size:18px">撕下這張，LINE 約時間</span><a class="btn line" href="${lineUrl()}" target="_blank" rel="noopener">LINE ${esc(SITE.lineId)}</a><span class="sub" style="font-size:13px">一定要本人來互動喔，這是我們認識彼此的方式。</span></div>
@@ -268,7 +268,6 @@ function bind(){
 function setMode(m){ document.body.classList.toggle("calm",m==="calm"); document.querySelectorAll(".mode button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===m)); try{localStorage.setItem("fx-mode",m);}catch{} }
 document.querySelector(".mode").onclick=e=>{const b=e.target.closest("button"); if(b) setMode(b.dataset.mode);};
 try{ if(localStorage.getItem("fx-mode")==="calm") setMode("calm"); }catch{}
-["logoFace","logoFace2"].forEach(i=>document.getElementById(i).innerHTML=boss(52));
 ["sideLine","mLine"].forEach(i=>document.getElementById(i).href=lineUrl());
 document.getElementById("shopLink").href=SITE.shopUrl;
 document.getElementById("burger").onclick=()=>document.body.classList.add("menu");
