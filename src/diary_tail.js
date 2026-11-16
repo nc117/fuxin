@@ -234,6 +234,7 @@ function route(){
   document.getElementById("app").innerHTML=c?profile(c):(PAGES[h]||PAGES.home)();
   const k=navKey(c?h:(PAGES[h]?h:"home"));
   document.getElementById("nav").innerHTML=NAV.map(n=>`<a href="#${n[0]}" class="${n[0]===k?"on":""}" style="background:${n[2]}">${n[1]}</a>`).join("");
+  const mh=document.getElementById("mHome"); if(mh){ k==="home"?mh.setAttribute("aria-current","page"):mh.removeAttribute("aria-current"); }
   document.title=(c?`${c.name}｜`:"")+"福信貓老大｜高雄無籠家庭貓舍";
   document.body.classList.remove("menu"); window.scrollTo(0,0); bind(); bindZoom(c); lbClose();
   if(pendingJump){ const el=document.getElementById(pendingJump); pendingJump=null; if(el) setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),60); }
