@@ -149,6 +149,22 @@ footer{margin-top:110px;padding-bottom:80px}
 .thumbs .shot{aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
 .shot{overflow:hidden}
 img.photo{width:100%;height:100%;object-fit:cover;display:block}
+.zoomable{cursor:zoom-in}
+#pmain.zoomable{position:relative}
+#pmain.zoomable::after{content:"點一下看大圖";position:absolute;right:10px;bottom:10px;font-size:12.5px;background:rgba(46,42,79,.72);color:#fff;padding:3px 10px;border-radius:999px;opacity:0;transition:opacity .2s}
+#pmain.zoomable:hover::after,#pmain.zoomable:focus-visible::after{opacity:1}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(20,18,36,.92);display:flex;align-items:center;justify-content:center;padding:56px 64px}
+.lb[hidden]{display:none}
+.lb-fig{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:100%;max-height:100%}
+.lb-fig img{max-width:100%;max-height:calc(100vh - 140px);object-fit:contain;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.lb-fig figcaption{color:#fff;font-family:var(--round);font-size:16px}
+.lb-x{position:absolute;top:14px;right:16px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:28px;line-height:1}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;border:0;border-radius:12px;background:rgba(255,255,255,.14);color:#fff;font-size:34px;line-height:1}
+.lb-nav[hidden]{display:none}
+.lb-prev{left:10px}.lb-next{right:10px}
+.lb-x:hover,.lb-nav:hover{background:rgba(255,255,255,.26)}
+body.lb-open{overflow:hidden}
+@media (max-width:640px){.lb{padding:56px 8px}.lb-nav{width:40px;height:52px;font-size:28px}}
 .idc{background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;box-shadow:var(--pop);overflow:hidden}
 .idc .hd{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:var(--butter);border-bottom:var(--bw) solid var(--ink);font-family:var(--round)}
 .idc dl{margin:0;padding:8px 22px 14px;display:grid;grid-template-columns:90px 1fr}

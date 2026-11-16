@@ -166,7 +166,7 @@ function profile(c){
   return `<div class="crumbs"><a href="#home">首頁</a> › <a href="#${back[0]}">${back[1]}</a> › ${esc(c.name)}</div>
   <div class="prof">
     <div><div class="pol tilt" style="transform:rotate(-1.5deg)" id="bigpol"><span class="tape" style="background:#FFE38A"></span>
-      <span class="shot ${tintOf(c)}" id="pmain">${pic(c,320)}</span>
+      <span class="shot ${tintOf(c)} ${nPh?"zoomable":""}" id="pmain" data-i="0" ${nPh?`role="button" tabindex="0" aria-label="放大看${esc(c.name)}的照片"`:""}>${pic(c,320)}</span>
       ${isK?`<span class="sticker tagst tilt st-${c.status}" style="font-size:16px">${STATUS[c.status]}</span>`:""}
       <span class="nm" id="pcap">${nPh?`照片 1 / ${nPh}`:"照片 1 / 5（待提供）"}</span></div>
       <div class="thumbs">${(nPh?[...Array(nPh).keys()]:[0,1,2,3,4]).map(i=>`<button data-i="${i}" aria-label="第 ${i+1} 張照片" aria-current="${i===0}"><span class="shot ${tints[(CATS.indexOf(c)+i)%5]}">${pic(c,50,{sleep:i===3},i)}</span></button>`).join("")}</div></div>
@@ -186,10 +186,42 @@ function profile(c){
   ${parents.length?`<section style="margin-top:80px"><h2 class="h2" style="margin-bottom:20px">爸爸和媽媽</h2><div class="mini">${parents.map((p,i)=>`<a href="#cat-${p.id}" class="card" style="padding:14px"><span class="shot ${tintOf(p)}">${pic(p,64)}</span><span><span class="sub" style="font-size:13px">${p.role==="queen"?"媽媽":"爸爸"}</span><br><b style="font-family:var(--round);font-weight:400;font-size:20px">${esc(p.name)}</b><br><span class="sub" style="font-size:13px">看健康檢查</span></span></a>`).join("")}</div></section>`:""}
   ${kids.length?`<section style="margin-top:80px"><h2 class="h2">${esc(c.name)}的孩子</h2><div class="pgrid">${kids.map(pol).join("")}</div></section>`:""}
   ${isK?`<section style="margin-top:80px"><h2 class="h2">成長紀錄</h2><p class="note">每週貼一張，看著${esc(c.name)}長大</p>
-     <div class="strip">${(c.timeline&&c.timeline.length?c.timeline:["剛出生","2 週","4 週","8 週","12 週","16 週"].map(w=>({label:w}))).map((w,i)=>`<div class="pol tilt" style="transform:rotate(${tilt(i)}deg)"><span class="tape" style="background:${TAPES[i%5]};width:60px;margin-left:-30px"></span><span class="shot ${tints[i%5]}">${w.img?`<img class="photo" src="${w.img}" alt="${esc(c.name)} ${esc(w.label)}">`:cat(c.art,40+i*12,{sleep:i===0})}</span><span class="nm">${esc(w.label)}</span></div>`).join("")}</div></section>
+     <div class="strip">${(c.timeline&&c.timeline.length?c.timeline:["剛出生","2 週","4 週","8 週","12 週","16 週"].map(w=>({label:w}))).map((w,i)=>`<div class="pol tilt" style="transform:rotate(${tilt(i)}deg)"><span class="tape" style="background:${TAPES[i%5]};width:60px;margin-left:-30px"></span><span class="shot ${tints[i%5]}">${w.img?`<img class="photo zoomable" data-tl="${i}" src="${w.img}" alt="${esc(c.name)} ${esc(w.label)}">`:cat(c.art,40+i*12,{sleep:i===0})}</span><span class="nm">${esc(w.label)}</span></div>`).join("")}</div></section>
    <section style="margin-top:80px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">${esc(c.name)}畢業時會帶著</h2><ul class="rules">${INCLUDES.map(i=>`<li><span>${esc(i)}</span></li>`).join("")}</ul></div>
      <div class="shopnote"><span><b style="font-family:var(--round);font-weight:400;font-size:19px">迎接${esc(c.name)}要準備什麼？</b><br><span class="sub">飼料、貓砂、抓板，家長專區有整理好的組合。</span></span><a class="btn ink" href="${SITE.shopUrl}" target="_blank" rel="noopener">前往家長專區 ↗</a></div></section>`:""}
   ${ticket()}`;
+}
+
+
+/* ============ 照片放大預覽 ============ */
+const LB={list:[],i:0,last:null};
+function lbEl(){
+  let el=document.getElementById("lb"); if(el) return el;
+  el=document.createElement("div"); el.id="lb"; el.className="lb"; el.setAttribute("role","dialog"); el.setAttribute("aria-modal","true"); el.setAttribute("aria-label","照片預覽"); el.hidden=true;
+  el.innerHTML=`<button type="button" class="lb-x" data-lb="close" aria-label="關閉預覽">×</button>
+    <button type="button" class="lb-nav lb-prev" data-lb="prev" aria-label="上一張">‹</button>
+    <figure class="lb-fig"><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+    <button type="button" class="lb-nav lb-next" data-lb="next" aria-label="下一張">›</button>`;
+  document.body.appendChild(el);
+  el.addEventListener("click",e=>{ const a=e.target.closest("[data-lb]"); if(a){ a.dataset.lb==="close"?lbClose():lbGo(a.dataset.lb==="next"?1:-1); return; } if(e.target===el||e.target.classList.contains("lb-fig")) lbClose(); });
+  let x0=null; el.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
+  el.addEventListener("touchend",e=>{ if(x0==null) return; const dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>50) lbGo(dx<0?1:-1); x0=null; });
+  el.addEventListener("keydown",e=>{ if(e.key==="Escape") lbClose(); if(e.key==="ArrowRight") lbGo(1); if(e.key==="ArrowLeft") lbGo(-1); });
+  return el;
+}
+function lbShow(){ const it=LB.list[LB.i]; document.getElementById("lbImg").src=it.src; document.getElementById("lbImg").alt=it.cap;
+  document.getElementById("lbCap").textContent=`${it.cap}　${LB.i+1} / ${LB.list.length}`;
+  document.querySelectorAll("#lb .lb-nav").forEach(b=>b.hidden=LB.list.length<2); }
+function lbOpen(list,i){ if(!list.length) return; LB.list=list; LB.i=i; LB.last=document.activeElement; const el=lbEl(); el.hidden=false; document.body.classList.add("lb-open"); lbShow(); el.querySelector(".lb-x").focus(); }
+function lbGo(d){ LB.i=(LB.i+d+LB.list.length)%LB.list.length; lbShow(); }
+function lbClose(){ const el=document.getElementById("lb"); if(!el) return; el.hidden=true; document.body.classList.remove("lb-open"); if(LB.last) LB.last.focus(); }
+function bindZoom(c){
+  if(!c) return;
+  const photos=(c.photos||[]).map((src,k)=>({src,cap:`${c.name}`}));
+  const pm=document.getElementById("pmain");
+  if(pm&&photos.length){ const open=()=>lbOpen(photos,+pm.dataset.i||0); pm.onclick=open; pm.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); open(); } }; }
+  const tl=(c.timeline||[]).filter(w=>w.img).map(w=>({src:w.img,cap:`${c.name}・${w.label}`}));
+  document.querySelectorAll("img[data-tl]").forEach(im=>im.onclick=()=>lbOpen(tl,+im.dataset.tl));
 }
 
 /* ============ 5. router ============ */
@@ -202,7 +234,7 @@ function route(){
   const k=navKey(c?h:(PAGES[h]?h:"home"));
   document.getElementById("nav").innerHTML=NAV.map(n=>`<a href="#${n[0]}" class="${n[0]===k?"on":""}" style="background:${n[2]}">${n[1]}</a>`).join("");
   document.title=(c?`${c.name}｜`:"")+"福信貓老大｜高雄無籠家庭貓舍";
-  document.body.classList.remove("menu"); window.scrollTo(0,0); bind();
+  document.body.classList.remove("menu"); window.scrollTo(0,0); bind(); bindZoom(c); lbClose();
   if(pendingJump){ const el=document.getElementById(pendingJump); pendingJump=null; if(el) setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"start"}),60); }
 }
 let pendingJump=null;
@@ -215,7 +247,7 @@ function bind(){
     document.getElementById("list").innerHTML=l.length?l.map(pol).join(""):`<div class="card" style="grid-column:1/-1;text-align:center"><div style="max-width:160px;margin:0 auto">${boss(160)}</div><h3 style="margin-top:8px">這一頁還是空的</h3><p class="sub" style="margin:6px 0 16px">老大在睡覺。加入通知名單，有新小貓我第一個告訴你。</p><a class="btn line" href="${lineUrl("我想加入新小貓通知名單")}" target="_blank" rel="noopener">加入通知名單</a></div>`;};
   const th=document.querySelector(".thumbs");
   if(th) th.onclick=e=>{const b=e.target.closest("button"); if(!b) return; th.querySelectorAll("button").forEach(x=>x.setAttribute("aria-current",x===b));
-    const pm=document.getElementById("pmain"); pm.className="shot "+b.querySelector(".shot").classList[1]; const im=b.querySelector("img"); if(im) pm.innerHTML=`<img class="photo" src="${im.src}" alt="">`; document.getElementById("pcap").textContent=`照片 ${+b.dataset.i+1} / ${th.children.length}`;};
+    const pm=document.getElementById("pmain"); pm.className="shot "+b.querySelector(".shot").classList[1]+(b.querySelector("img")?" zoomable":""); pm.dataset.i=b.dataset.i; const im=b.querySelector("img"); if(im) pm.innerHTML=`<img class="photo" src="${im.src}" alt="">`; document.getElementById("pcap").textContent=`照片 ${+b.dataset.i+1} / ${th.children.length}`;};
   const form=document.getElementById("bookForm");
   if(form) form.onsubmit=e=>{e.preventDefault(); const d=Object.fromEntries(new FormData(form));
     const msg=`你好，我想約時間去福信貓老大互動。\n稱呼：${d.name}\n電話：${d.phone}\n想認識：${d.cat}\n方便時間：${d.date||"可再討論"} ${d.slot}\n養貓經驗與家裡寵物：${d.home||"（未填）"}\n能接受無籠飼養：${d.nocage}\n喜歡上牠的原因：${d.why||"（未填）"}`;
