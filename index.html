@@ -187,6 +187,8 @@ body.lb-open{overflow:hidden}
 .says .face{flex:none;width:56px;height:56px;border-radius:50%;background:var(--butter);border:var(--bw) solid var(--ink);overflow:hidden;display:grid;place-items:center}
 .says .bubble{font-size:17px;padding:12px 16px}
 .pcta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.stay-note{margin-top:22px;padding:14px 18px;background:var(--cream);border:2px dashed var(--ink);border-radius:14px;font-size:15px;color:var(--ink2)}
+.stay-note a{color:var(--ink);font-weight:700}
 .pcta .btn{flex:1}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .card{background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;padding:24px;box-shadow:var(--pop)}
@@ -576,7 +578,7 @@ family(){
    <div class="pgrid">${CATS.filter(c=>c.role==="grad").map(pol).join("")}</div>${ticket()}`;
 },
 visit(){
-  const opts=kittens().filter(c=>c.status!=="home").map(c=>`<option>${esc(c.name)}（${c.sex==="公"?"弟弟":"妹妹"}）</option>`).join("");
+  const opts=kittens().filter(c=>c.status==="available"||c.status==="talking").map(c=>`<option>${esc(c.name)}（${c.sex==="公"?"弟弟":"妹妹"}）</option>`).join("");
   return `<section class="split" style="align-items:start">
    <div><div class="bubble">要來玩之前，<br>先跟我說說你家的事。</div>
      <h1 class="h2" style="font-size:44px;margin-top:24px">約時間來互動</h1>
@@ -617,10 +619,11 @@ function profile(c){
         <div style="padding:18px 22px 0"><h1>${esc(c.name)}</h1><p class="sub">${esc(c.en)}${c.formerly?`，在老大家時叫${esc(c.formerly)}`:""}</p></div>
         <dl>${rows.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("")}</dl></div>
       <div class="says"><span class="face">${boss(64)}</span><div class="bubble">${esc(c.note)}</div></div>
-      ${isK&&c.status!=="home"?`<div class="pcta"><a class="btn line" href="${lineUrl(msg)}" target="_blank" rel="noopener">LINE 問問${esc(c.name)}</a><a class="btn" href="#visit">約時間來看${esc(c.name)}</a></div>`:""}
+      ${isK&&c.status==="stay"?`<p class="stay-note">${esc(c.name)}是老大自留的孩子，不找家。喜歡這樣的孩子？<a href="${lineUrl("我想加入福信貓老大的新小貓通知名單")}" target="_blank" rel="noopener">加入新小貓通知</a>，有新寶寶時老大會告訴你。</p>`:""}
+      ${isK&&(c.status==="available"||c.status==="talking")?`<div class="pcta"><a class="btn line" href="${lineUrl(msg)}" target="_blank" rel="noopener">LINE 問問${esc(c.name)}</a><a class="btn" href="#visit">約時間來看${esc(c.name)}</a></div>`:""}
     </div>
   </div>
-  ${c.scores?`<section class="two">
+  ${c.scores?`<section class="two" style="margin-top:48px">
     <div class="card"><h3>個性小檔案</h3>${Object.entries(c.scores).map(([k,v])=>`<div class="paws"><span>${k}</span><i>${[1,2,3,4,5].map(n=>pawSVG(n<=v)).join("")}</i></div>`).join("")}
       <div class="chips" style="margin-top:14px">${(c.traits||[]).map(t=>`<span>#${esc(t)}</span>`).join("")}</div></div>
     <div class="card"><h3>健康檢查</h3>${c.tests?`<ul class="checks">${c.tests.map(t=>`<li><span><b>${t[0]}</b>：${t[2]}<br><span class="sub" style="font-size:13px">${t[1]}</span></span></li>`).join("")}</ul>`:`<ul class="checks"><li>爸媽與自己都做過 13 項遺傳疾病基因篩檢</li><li>毛色基因、血型基因檢測</li><li>三劑核心疫苗</li><li>交貓前三合一快篩、血液檢查</li><li>術前血檢＋氣麻絕育，照顧到康復</li></ul>`}</div>
@@ -629,8 +632,8 @@ function profile(c){
   ${kids.length?`<section style="margin-top:80px"><h2 class="h2">${esc(c.name)}的孩子</h2><div class="pgrid">${kids.map(pol).join("")}</div></section>`:""}
   ${isK?`<section style="margin-top:80px"><h2 class="h2">成長紀錄</h2><p class="note">每週貼一張，看著${esc(c.name)}長大</p>
      <div class="strip">${(c.timeline&&c.timeline.length?c.timeline:["剛出生","2 週","4 週","8 週","12 週","16 週"].map(w=>({label:w}))).map((w,i)=>`<div class="pol tilt" style="transform:rotate(${tilt(i)}deg)"><span class="tape" style="background:${TAPES[i%5]};width:60px;margin-left:-30px"></span><span class="shot ${tints[i%5]}">${w.img?`<img class="photo zoomable" data-tl="${i}" src="${w.img}" alt="${esc(c.name)} ${esc(w.label)}">`:cat(c.art,40+i*12,{sleep:i===0})}</span><span class="nm">${esc(w.label)}</span></div>`).join("")}</div></section>
-   <section style="margin-top:80px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">${esc(c.name)}畢業時會帶著</h2><ul class="rules">${INCLUDES.map(i=>`<li><span>${esc(i)}</span></li>`).join("")}</ul></div>
-     <div class="shopnote"><span><b style="font-family:var(--round);font-weight:400;font-size:19px">迎接${esc(c.name)}要準備什麼？</b><br><span class="sub">飼料、貓砂、抓板，家長專區有整理好的組合。</span></span><a class="btn ink" href="${SITE.shopUrl}" target="_blank" rel="noopener">前往家長專區 ↗</a></div></section>`:""}
+   ${c.status!=="stay"?`<section style="margin-top:80px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">${esc(c.name)}畢業時會帶著</h2><ul class="rules">${INCLUDES.map(i=>`<li><span>${esc(i)}</span></li>`).join("")}</ul></div>
+     <div class="shopnote"><span><b style="font-family:var(--round);font-weight:400;font-size:19px">迎接${esc(c.name)}要準備什麼？</b><br><span class="sub">飼料、貓砂、抓板，家長專區有整理好的組合。</span></span><a class="btn ink" href="${SITE.shopUrl}" target="_blank" rel="noopener">前往家長專區 ↗</a></div></section>`:""}`:""}
   ${ticket()}`;
 }
 
