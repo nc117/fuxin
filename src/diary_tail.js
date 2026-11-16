@@ -79,7 +79,7 @@ home(){
       <span class="sticker tilt" style="right:2%;bottom:0;background:var(--mint);transform:rotate(6deg)">全無籠飼養</span></div>
     <div>
       <div class="bubble">我是老大。<br>我養的是貓，不是雞。<br>這裡是貓舍，不是養雞場。</div>
-      <h1>福信貓老大的手帳</h1>
+      <h1><span class="nw">福信貓老大</span><span class="nw">的手帳</span></h1>
       <p class="lead">高雄一棟五層樓透天，只住了幾隻貓爸爸媽媽。沒有籠子，連種公都一貓一房。英短、英長和塞爾凱克捲毛貓，都在這裡自由自在地長大。</p>
       <p class="note" style="margin-top:8px">（老大說：要來看貓，先讀過小貓的個性，還有不要噴香水）</p>
       <div class="cta"><a class="btn berry" href="#kittens">翻到小貓那頁</a><a class="btn" href="#visit">約時間來玩</a></div>
