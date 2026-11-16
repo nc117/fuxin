@@ -65,9 +65,18 @@ const PAGES={
 home(){
   const ks=kittens();
   return `<section class="hero">
-    <div class="boss"><div class="blob"></div>${boss(500)}
-      <span class="sticker tilt" style="left:2%;top:6%;background:var(--butter);border-radius:50%;padding:12px 12px;transform:rotate(-12deg)">合法<br>特寵業</span>
-      <span class="sticker tilt" style="right:0;bottom:14%;background:var(--mint);transform:rotate(8deg)">全無籠飼養</span><span class="sticker tilt" style="right:4%;top:10%;background:var(--pink);transform:rotate(-6deg)">滿四個月<br>三劑疫苗</span></div>
+    <div class="crew" aria-label="福信貓老大家的貓咪們">
+      <div class="blob"></div>
+      <img class="c" src="img/hero/sit-bw.webp" alt="黑白長毛貓坐著" style="left:6%;bottom:31%;width:21%">
+      <img class="c" src="img/hero/sit-cream.webp" alt="奶油白短毛貓坐著" style="left:37%;bottom:33%;width:20%">
+      <img class="c" src="img/hero/sit-gold.webp" alt="金色英短坐著" style="left:63%;bottom:32%;width:18%">
+      <img class="c" src="img/hero/lie-white.webp" alt="白色長毛貓趴著" style="left:0;bottom:3%;width:47%">
+      <img class="c" src="img/hero/sleep-bw.webp" alt="黑白貓睡覺" style="left:44%;bottom:5%;width:55%">
+      <img class="r tilt" src="img/hero/r-kitten.webp" alt="剛出生的小奶貓" style="left:1%;top:3%;width:21%;transform:rotate(-8deg)">
+      <img class="r tilt" src="img/hero/r-paw.webp" alt="小貓舉起肉球" style="right:1%;top:1%;width:23%;transform:rotate(7deg)">
+      <span class="sticker tilt" style="left:30%;top:9%;background:var(--butter);border-radius:50%;padding:12px 12px;transform:rotate(-12deg)">合法<br>特寵業</span>
+      <span class="sticker tilt" style="left:52%;top:15%;background:var(--pink);transform:rotate(-5deg)">滿四個月<br>三劑疫苗</span>
+      <span class="sticker tilt" style="right:2%;bottom:0;background:var(--mint);transform:rotate(6deg)">全無籠飼養</span></div>
     <div>
       <div class="bubble">我是老大。<br>我養的是貓，不是雞。<br>這裡是貓舍，不是養雞場。</div>
       <h1>福信貓老大的手帳</h1>

@@ -85,6 +85,12 @@ section+section{margin-top:110px}
 .boss{position:relative;aspect-ratio:1;max-width:500px}
 .blob{position:absolute;inset:8% 6% 4% 6%;background:var(--sky);border-radius:46% 54% 50% 50%/52% 46% 54% 48%}
 .boss svg{position:relative}
+.crew{position:relative;aspect-ratio:1;max-width:560px;width:100%}
+.crew .c{position:absolute;height:auto;filter:drop-shadow(0 8px 10px rgba(46,42,79,.18));transition:transform .2s}
+.crew .c:hover{transform:translateY(-6px)}
+.crew .r{position:absolute;aspect-ratio:1;object-fit:cover;border-radius:50%;border:5px solid #fff;box-shadow:0 0 0 2.5px var(--ink),0 8px 16px rgba(46,42,79,.18)}
+body.calm .crew .r{box-shadow:0 8px 16px rgba(46,42,79,.18)}
+.crew .sticker{z-index:2}
 .sticker{position:absolute;padding:8px 14px;border:2px solid var(--ink);border-radius:999px;font-family:var(--round);font-size:14px;line-height:1.25;text-align:center}
 .bubble{position:relative;display:inline-block;padding:16px 22px;background:#fff;border:2.5px solid var(--ink);border-radius:22px;font-family:var(--round);font-size:21px;line-height:1.5;box-shadow:var(--pop)}
 .bubble::after{content:"";position:absolute;left:-15px;bottom:22px;width:22px;height:22px;background:#fff;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
@@ -231,6 +237,7 @@ details p{padding:0 0 16px;color:var(--ink2)}
   .burger{width:44px;height:44px;border:var(--bw) solid var(--ink);border-radius:12px;background:#fff;padding:0;display:grid;place-items:center}
   .burger svg{width:20px;height:20px}
   .hero,.split,.prof,.two{grid-template-columns:1fr}
+  .crew{margin:0 auto}
   .boss{margin:0 auto;width:100%}
   .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--paper);border-top:2px solid var(--ink)}
   .mbar .btn{flex:1;box-shadow:none}
