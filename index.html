@@ -38,7 +38,8 @@ a{color:inherit}
 :focus-visible{outline:3px solid var(--berry);outline-offset:3px}
 svg{display:block;max-width:100%}
 button{font:inherit;color:inherit;cursor:pointer}
-h1,h2,h3{margin:0;font-family:var(--round);font-weight:400;line-height:1.25}
+h1,h2,h3{margin:0;font-family:var(--round);font-weight:400;line-height:1.25;text-wrap:balance;word-break:keep-all;overflow-wrap:break-word}
+p,li,dd,summary{text-wrap:pretty}
 p{margin:0}
 .hand{font-family:var(--hand)}
 .sub{color:var(--ink2)}
@@ -113,6 +114,7 @@ body.calm .crew .r{box-shadow:0 8px 16px rgba(46,42,79,.18)}
 .sticker{position:absolute;padding:8px 14px;border:2px solid var(--ink);border-radius:999px;font-family:var(--round);font-size:14px;line-height:1.25;text-align:center}
 .bubble{position:relative;display:inline-block;padding:16px 22px;background:#fff;border:2.5px solid var(--ink);border-radius:22px;font-family:var(--round);font-size:21px;line-height:1.5;box-shadow:var(--pop)}
 .bubble::after{content:"";position:absolute;left:-15px;bottom:22px;width:22px;height:22px;background:#fff;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
+.bubble.keep{word-break:keep-all;overflow-wrap:break-word;text-wrap:balance}
 body.calm .bubble,body.calm .bubble::after{border-width:1px}
 .hero h1{margin-top:26px;font-size:clamp(30px,4.6vw,56px);line-height:1.2;white-space:nowrap}
 @supports (font-size:1cqw){.hero h1{font-size:min(56px,calc(100cqw / 8.4))}}
@@ -139,7 +141,8 @@ body.calm .bubble,body.calm .bubble::after{border-width:1px}
 .paper{position:relative;background:#fff;border:var(--bw) solid var(--ink);border-radius:6px;padding:28px 32px;box-shadow:var(--pop);background-image:repeating-linear-gradient(transparent 0 39px,#E7E2F2 39px 40px);background-position:0 18px}
 .rules{list-style:none;margin:0;padding:0}
 .rules li{display:grid;grid-template-columns:30px 1fr;gap:10px;line-height:40px}
-.rules li::before{content:"✓";font-family:var(--round);color:var(--berry);font-size:20px}
+.rules li::before{content:"";width:22px;height:22px;margin-top:9px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23F2877E'%3E%3Cpath d='M12 12.5c-3 0-6 3.2-6 5.6 0 1.6 1.3 2.4 2.8 2.4 1.3 0 2.1-.7 3.2-.7s1.9.7 3.2.7c1.5 0 2.8-.8 2.8-2.4 0-2.4-3-5.6-6-5.6z'/%3E%3Cellipse cx='5' cy='10' rx='2.1' ry='2.6' transform='rotate(-20 5 10)'/%3E%3Cellipse cx='9.3' cy='5.6' rx='2.2' ry='2.8' transform='rotate(-8 9.3 5.6)'/%3E%3Cellipse cx='14.7' cy='5.6' rx='2.2' ry='2.8' transform='rotate(8 14.7 5.6)'/%3E%3Cellipse cx='19' cy='10' rx='2.1' ry='2.6' transform='rotate(20 19 10)'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;transform:rotate(-14deg)}
+.rules li:nth-child(even)::before{transform:rotate(10deg)}
 .rules b{font-family:var(--round);font-weight:400}
 .split{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
 .sticky{background:var(--butter);padding:30px 28px 34px;box-shadow:0 10px 20px rgba(46,42,79,.14);font-family:var(--round);font-size:clamp(24px,2.6vw,30px);line-height:1.5}
@@ -272,6 +275,7 @@ details p{padding:0 0 16px;color:var(--ink2)}
   .fgrid,.mini{grid-template-columns:1fr}
   .paper{padding:22px 20px}
   .rules li{line-height:1.6;padding:9px 0}
+  .rules li::before{margin-top:1px}
   .paper{background-image:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -516,7 +520,7 @@ function pol(c,i,{small=false}={}){
 const pawSVG=(on)=>`<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="${on?"#F2877E":"#E7E2F2"}"><ellipse cx="12" cy="16" rx="5" ry="4.2"/><circle cx="6" cy="10" r="2.3"/><circle cx="10" cy="6.5" r="2.3"/><circle cx="14" cy="6.5" r="2.3"/><circle cx="18" cy="10" r="2.3"/></g></svg>`;
 function ticket(){
   return `<footer><div class="ticket">
-    <div class="a"><p class="note" style="display:flex;align-items:center;gap:8px"><img src="img/logo.svg" alt="" width="34" height="34">福信貓老大　參觀券</p><h2 class="h2" style="margin:2px 0 16px">來透天找老大玩</h2>
+    <div class="a"><p class="note" style="display:flex;align-items:center;gap:8px"><img src="img/logo.svg" alt="" width="34" height="34">福信貓老大　參觀券</p><h2 class="h2" style="margin:2px 0 16px">來透天<wbr>找老大玩</h2>
       <dl class="dl"><dt>地址</dt><dd>${esc(SITE.address)}</dd><dt>時間</dt><dd>${esc(SITE.hours)}，一次一組</dd><dt>許可證</dt><dd>${lic()}</dd>
       <dt>社群</dt><dd><a href="${SITE.threads}" target="_blank" rel="noopener">Threads</a>　<a href="${SITE.facebook}" target="_blank" rel="noopener">Facebook</a></dd></dl></div>
     <div class="b"><span style="font-family:var(--round);font-size:18px">撕下這張，LINE 約時間</span><a class="btn line" href="${lineUrl()}" target="_blank" rel="noopener">LINE ${esc(SITE.lineId)}</a><span class="sub" style="font-size:13px">一定要本人來互動喔，這是我們認識彼此的方式。</span></div>
@@ -532,7 +536,7 @@ function guaranteeHTML(){
   <p class="sub" style="margin-top:14px;max-width:40em">為什麼 FIP 是退費而不是換一隻？因為如果新環境讓第一隻生病，老大不能確定第二隻送過去會不會一樣。換貓保護的是成交，退費保護的是貓。</p></section>`;
 }
 function promisesHTML(){
-  return `<section class="split" id="promises" style="align-items:start;scroll-margin-top:90px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">你也要答應老大的五件事</h2><ul class="rules">${PROMISES.map(p=>`<li><span>${p}</span></li>`).join("")}</ul></div>
+  return `<section class="split" id="promises" style="align-items:start;scroll-margin-top:90px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">你也要答應<wbr>老大的五件事</h2><ul class="rules">${PROMISES.map(p=>`<li><span>${p}</span></li>`).join("")}</ul></div>
   <div class="sticky tilt" style="transform:rotate(-2deg);background:var(--pink)">回家要關籠飼養的：搭咩。<br>要當店貓的：搭咩。<br>要帶去蹓貓的：也搭咩。<small>老大</small></div></section>`;
 }
 function factsHTML(){
@@ -557,14 +561,14 @@ home(){
       <span class="sticker tilt" style="left:52%;top:15%;background:var(--pink);transform:rotate(-5deg)">滿四個月<br>三劑疫苗</span>
       <span class="sticker tilt" style="right:2%;bottom:0;background:var(--mint);transform:rotate(6deg)">全無籠飼養</span></div>
     <div>
-      <div class="bubble">我是老大。<br>我養的是貓，不是雞。<br>這裡是貓舍，不是養雞場。</div>
+      <div class="bubble keep">我是老大。<br>我養的是貓，不是雞。<br>這裡是貓舍，不是養雞場。</div>
       <h1>福信貓老大的手帳</h1>
       <p class="lead">高雄一棟五層樓透天，只住了幾隻貓爸爸媽媽。沒有籠子，連種公都一貓一房。英短、英長和塞爾凱克捲毛貓，都在這裡自由自在地長大。</p>
       <p class="note" style="margin-top:8px">（老大說：要來看貓，先讀過小貓的個性，還有不要噴香水）</p>
       <div class="cta"><a class="btn berry" href="#kittens">翻到小貓那頁</a><a class="btn" href="#visit">約時間來玩</a></div>
     </div></section>
 
-  <section><h2 class="h2">這一頁：在找家的小貓</h2><p class="note">點照片，看牠的個性、爸媽和成長紀錄</p>
+  <section><h2 class="h2">這一頁：<wbr>在找家的小貓</h2><p class="note">點照片，看牠的個性、爸媽和成長紀錄</p>
     <div class="pgrid">${ks.map(pol).join("")}</div></section>
 
   <section class="split">
@@ -573,22 +577,22 @@ home(){
     <div class="sticky tilt" style="transform:rotate(2.5deg)">寧可不成交，<br>也絕不隔空成交。<small>老大，福信貓老大主人</small></div>
   </section>
 
-  <section><h2 class="h2">帶小貓回家的路線</h2>${route6()}</section>
+  <section><h2 class="h2">帶小貓<wbr>回家的路線</h2>${route6()}</section>
 
   ${guaranteeHTML()}
-  <section><h2 class="h2">老大家的日常小事</h2><p class="note">都是真的，不是我們編的</p>${factsHTML()}</section>
-  <section><h2 class="h2">已經回家的孩子</h2><p class="note">畢業不是結束，老大會去新家探望牠們</p>
+  <section><h2 class="h2">老大家的<wbr>日常小事</h2><p class="note">都是真的，不是我們編的</p>${factsHTML()}</section>
+  <section><h2 class="h2">已經<wbr>回家的孩子</h2><p class="note">畢業不是結束，老大會去新家探望牠們</p>
     <div class="pgrid">${CATS.filter(c=>c.role==="grad").map(pol).join("")}</div></section>
   ${ticket()}`;
 },
 kittens(){
-  return `<h1 class="h2">在找家的小貓</h1><p class="note">滿四個月、打滿三劑之後才開放互動。有些孩子太親人，老大捨不得，就自己留下來了</p>
+  return `<h1 class="h2">在找家的<wbr>小貓</h1><p class="note">滿四個月、打滿三劑之後才開放互動。有些孩子太親人，老大捨不得，就自己留下來了</p>
    <div class="filters" id="filters">${[["all","全部"],["available","可預約"],["talking","洽談中"],["home","已有家長"],["stay","自留"]].map((f,i)=>`<button data-f="${f[0]}" class="${i?"":"on"}">${f[1]}</button>`).join("")}</div>
    <div class="pgrid" id="list">${kittens().map(pol).join("")}</div>${ticket()}`;
 },
 parents(){
   const g=(role,t,n)=>`<section><h2 class="h2">${t}</h2><p class="note">${n}</p><div class="pgrid">${CATS.filter(c=>c.role===role).map(pol).join("")}</div></section>`;
-  return `<h1 class="h2" style="font-size:44px">種公、種母和家裡的貓</h1><p class="sub" style="margin-top:8px;max-width:32em">每隻種貓都做過 13 項遺傳疾病基因篩檢，結果寫在各自的頁面。五層樓電梯透天，只有八隻貓爸爸媽媽。</p>
+  return `<h1 class="h2" style="font-size:44px">種公、<wbr>種母<wbr>和家裡的貓</h1><p class="sub" style="margin-top:8px;max-width:32em">每隻種貓都做過 13 項遺傳疾病基因篩檢，結果寫在各自的頁面。五層樓電梯透天，只有八隻貓爸爸媽媽。</p>
    <div style="margin-top:40px"></div>${g("king","種公","一貓一房，15 坪，還有獨立衛浴")}${g("queen","種母","一年最多一胎，早早退休，跟老大回家養老")}${g("pet","家裡的貓","收養回來的孩子，不參與繁育。在老大家，品種貓和米克斯待遇都一樣")}${ticket()}`;
 },
 about(){
@@ -613,19 +617,19 @@ plan(){
      <a class="btn line" href="${lineUrl("我想加入福信貓老大的新小貓通知名單")}" target="_blank" rel="noopener">加入通知名單</a></div>${ticket()}`;
 },
 process(){
-  return `<h1 class="h2" style="font-size:44px">帶小貓回家的路線</h1>${route6()}
-   <section style="margin-top:96px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">小貓畢業時會帶著</h2><ul class="rules">${INCLUDES.map(i=>`<li><span>${esc(i)}</span></li>`).join("")}</ul></div></section>
+  return `<h1 class="h2" style="font-size:44px">帶小貓<wbr>回家的路線</h1>${route6()}
+   <section style="margin-top:96px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">小貓畢業時<wbr>會帶著</h2><ul class="rules">${INCLUDES.map(i=>`<li><span>${esc(i)}</span></li>`).join("")}</ul></div></section>
    ${guaranteeHTML()}${promisesHTML()}<section><h2 class="h2" style="margin-bottom:20px">常見問題</h2>${FAQ.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join("")}</section>${ticket()}`;
 },
 family(){
-  return `<h1 class="h2" style="font-size:44px">已經回家的孩子</h1><p class="note">畢業的孩子終身可以回娘家住宿，每月回來洗澡美容，都不用錢</p>
+  return `<h1 class="h2" style="font-size:44px">已經<wbr>回家的孩子</h1><p class="note">畢業的孩子終身可以回娘家住宿，每月回來洗澡美容，都不用錢</p>
    <div class="pgrid">${CATS.filter(c=>c.role==="grad").map(pol).join("")}</div>${ticket()}`;
 },
 visit(){
   const opts=kittens().filter(c=>c.status==="available"||c.status==="talking").map(c=>`<option>${esc(c.name)}（${c.sex==="公"?"弟弟":"妹妹"}）</option>`).join("");
   return `<section class="split" style="align-items:start">
-   <div><div class="bubble">要來玩之前，<br>先跟我說說你家的事。</div>
-     <h1 class="h2" style="font-size:44px;margin-top:24px">約時間來互動</h1>
+   <div><div class="bubble keep">要來玩之前，<br>先跟我說說<wbr>你家的事。</div>
+     <h1 class="h2" style="font-size:44px;margin-top:24px">約時間<wbr>來互動</h1>
      <p class="sub" style="margin-top:10px">每位家長都一定要本人來互動過。一趟不夠就來兩趟，我們彼此認識一下。貓願不願意跟你玩，牠自己決定。</p>
      <p class="note" style="margin-top:12px">（老大提醒：不要噴香水，十公尺外都聞得到；也不要抓著貓的手掌把牠提起來）</p>
      <div style="margin-top:20px;max-width:300px">${boss(260)}</div></div>
@@ -673,10 +677,10 @@ function profile(c){
     <div class="card"><h3>健康檢查</h3>${c.tests?`<ul class="checks">${c.tests.map(t=>`<li><span><b>${t[0]}</b>：${t[2]}<br><span class="sub" style="font-size:13px">${t[1]}</span></span></li>`).join("")}</ul>`:`<ul class="checks"><li>爸媽與自己都做過 13 項遺傳疾病基因篩檢</li><li>毛色基因、血型基因檢測</li><li>三劑核心疫苗</li><li>交貓前三合一快篩、血液檢查</li><li>術前血檢＋氣麻絕育，照顧到康復</li></ul>`}</div>
   </section>`:""}
   ${parents.length?`<section style="margin-top:80px"><h2 class="h2" style="margin-bottom:20px">爸爸和媽媽</h2><div class="mini">${parents.map((p,i)=>`<a href="#cat-${p.id}" class="card" style="padding:14px"><span class="shot ${tintOf(p)}">${pic(p,64)}</span><span><span class="sub" style="font-size:13px">${p.role==="queen"?"媽媽":"爸爸"}</span><br><b style="font-family:var(--round);font-weight:400;font-size:20px">${esc(p.name)}</b><br><span class="sub" style="font-size:13px">看健康檢查</span></span></a>`).join("")}</div></section>`:""}
-  ${kids.length?`<section style="margin-top:80px"><h2 class="h2">${esc(c.name)}的孩子</h2><div class="pgrid">${kids.map(pol).join("")}</div></section>`:""}
+  ${kids.length?`<section style="margin-top:80px"><h2 class="h2">${esc(c.name)}<wbr>的孩子</h2><div class="pgrid">${kids.map(pol).join("")}</div></section>`:""}
   ${isK?`<section style="margin-top:80px"><h2 class="h2">成長紀錄</h2><p class="note">每週貼一張，看著${esc(c.name)}長大</p>
      <div class="strip">${(c.timeline&&c.timeline.length?c.timeline:["剛出生","2 週","4 週","8 週","12 週","16 週"].map(w=>({label:w}))).map((w,i)=>`<div class="pol tilt" style="transform:rotate(${tilt(i)}deg)"><span class="tape" style="background:${TAPES[i%5]};width:60px;margin-left:-30px"></span><span class="shot ${tints[i%5]}">${w.img?`<img class="photo zoomable" data-tl="${i}" src="${w.img}" alt="${esc(c.name)} ${esc(w.label)}">`:cat(c.art,40+i*12,{sleep:i===0})}</span><span class="nm">${esc(w.label)}</span></div>`).join("")}</div></section>
-   ${c.status!=="stay"?`<section style="margin-top:80px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">${esc(c.name)}畢業時會帶著</h2><ul class="rules">${INCLUDES.map(i=>`<li><span>${esc(i)}</span></li>`).join("")}</ul></div>
+   ${c.status!=="stay"?`<section style="margin-top:80px"><div class="paper"><h2 class="h2" style="margin-bottom:10px">${esc(c.name)}<wbr>畢業時會帶著</h2><ul class="rules">${INCLUDES.map(i=>`<li><span>${esc(i)}</span></li>`).join("")}</ul></div>
      <div class="shopnote"><span><b style="font-family:var(--round);font-weight:400;font-size:19px">迎接${esc(c.name)}要準備什麼？</b><br><span class="sub">飼料、貓砂、抓板，家長專區有整理好的組合。</span></span><a class="btn ink" href="${SITE.shopUrl}" target="_blank" rel="noopener">前往家長專區 ↗</a></div></section>`:""}`:""}
   ${ticket()}`;
 }
@@ -734,7 +738,7 @@ function bind(){
   const f=document.getElementById("filters");
   if(f) f.onclick=e=>{const b=e.target.closest("button"); if(!b) return; f.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));
     const l=kittens().filter(c=>b.dataset.f==="all"||c.status===b.dataset.f);
-    document.getElementById("list").innerHTML=l.length?l.map(pol).join(""):`<div class="card" style="grid-column:1/-1;text-align:center"><div style="max-width:160px;margin:0 auto">${boss(160)}</div><h3 style="margin-top:8px">這一頁還是空的</h3><p class="sub" style="margin:6px 0 16px">老大在睡覺。加入通知名單，有新小貓我第一個告訴你。</p><a class="btn line" href="${lineUrl("我想加入新小貓通知名單")}" target="_blank" rel="noopener">加入通知名單</a></div>`;};
+    document.getElementById("list").innerHTML=l.length?l.map(pol).join(""):`<div class="card" style="grid-column:1/-1;text-align:center"><div style="max-width:160px;margin:0 auto">${boss(160)}</div><h3 style="margin-top:8px">這一頁<wbr>還是空的</h3><p class="sub" style="margin:6px 0 16px">老大在睡覺。加入通知名單，有新小貓我第一個告訴你。</p><a class="btn line" href="${lineUrl("我想加入新小貓通知名單")}" target="_blank" rel="noopener">加入通知名單</a></div>`;};
   const th=document.querySelector(".thumbs");
   if(th) th.onclick=e=>{const b=e.target.closest("button"); if(!b) return; th.querySelectorAll("button").forEach(x=>x.setAttribute("aria-current",x===b));
     const pm=document.getElementById("pmain"); pm.className="shot "+b.querySelector(".shot").classList[1]+(b.querySelector("img")?" zoomable":""); pm.dataset.i=b.dataset.i; const im=b.querySelector("img"); if(im) pm.innerHTML=`<img class="photo" src="${im.src}" alt="" style="${im.getAttribute("style")||""}">`; document.getElementById("pcap").textContent=`照片 ${+b.dataset.i+1} / ${th.children.length}`;};
