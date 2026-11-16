@@ -138,6 +138,15 @@ body.calm .ticket{border-width:1px;box-shadow:var(--pop)}
 .dl{margin:0;display:grid;grid-template-columns:70px 1fr;gap:6px 14px;font-size:15px}
 .dl dt{color:var(--ink2)}.dl dd{margin:0}
 footer{margin-top:110px;padding-bottom:80px}
+@media (max-width:760px){
+  .ticket{flex-direction:column}
+  .ticket .a,.ticket .b{flex:none}
+  .ticket .b{border-left:0;border-top:3px dashed var(--ink);position:relative;padding:28px 26px}
+  .ticket .a{padding:28px 26px}
+  .ticket .b::before,.ticket .b::after{content:"";position:absolute;top:-14px;width:24px;height:24px;border-radius:50%;background:var(--paper);border:2.5px solid var(--ink)}
+  .ticket .b::before{left:-15px;clip-path:inset(0 0 0 50%)}
+  .ticket .b::after{right:-15px;clip-path:inset(0 50% 0 0)}
+}
 
 /* profile */
 .crumbs{font-size:14px;color:var(--ink2);margin-bottom:26px}
