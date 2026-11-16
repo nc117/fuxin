@@ -1,6 +1,6 @@
 
 /* ============ 1b. 資料儲存（原型：存在這台裝置的瀏覽器；正式版改接雲端資料庫） ============ */
-const STORE_KEY="fx-cats-v1", SITE_KEY="fx-site-v1";
+const STORE_KEY="fx-cats-v2", SITE_KEY="fx-site-v1";
 function loadCats(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){} return JSON.parse(JSON.stringify(DEFAULT_CATS)); }
 function saveCats(list){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(list)); return true; }catch(e){ return false; } }
 function loadSite(){ try{ const s=localStorage.getItem(SITE_KEY); if(s) return JSON.parse(s); }catch(e){} return {}; }

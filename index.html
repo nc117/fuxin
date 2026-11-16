@@ -340,9 +340,11 @@ const DEFAULT_CATS = [
    note:"離開好一陣子，再見面還是乖乖坐在老大腿上讓他清耳朵。"},
   {id:"gongtang",role:"grad",name:"貢糖",en:"Gongtang",formerly:"龍五",breed:"英國長毛貓",color:"",sex:"公",birthday:"2026-05-08",home:"（待確認）",art:"gold",
    note:"那一窩裡體格最好、骨架最大。回娘家洗澡時，自己走到小時候睡覺的位置躺好，家長要走時還帶不走。"},
-  {id:"shaoye",role:"grad",name:"少爺",en:"Shaoye",breed:"英國長毛貓",color:"",sex:"公",home:"台北",art:"cream",
+  {id:"shaoye",role:"grad",name:"少爺",en:"Shaoye",breed:"英國長毛貓",color:"藍白雙色",sex:"公",home:"台北",art:"bluewhite",
+   photos:["img/shaoye-1.jpg","img/shaoye-2.jpg","img/shaoye-3.jpg","img/shaoye-4.jpg","img/shaoye-5.jpg"],
    note:"和妹妹小花一起去了大到會迷路的新家。老大只收了一包糖當聘金。"},
-  {id:"xiaohua",role:"grad",name:"小花",en:"Xiaohua",breed:"英國短毛貓",color:"",sex:"母",home:"台北",art:"gold",
+  {id:"xiaohua",role:"grad",name:"小花",en:"Xiaohua",breed:"英國短毛貓",color:"藍白雙色",sex:"母",home:"台北",art:"bluewhite",
+   photos:["img/xiaohua-1.jpg","img/xiaohua-2.jpg","img/xiaohua-3.jpg","img/xiaohua-4.jpg","img/xiaohua-5.jpg"],
    note:"有次全家找她找了好久，最後發現她躺在椅子上睡到翻白肚。"},
 
   {id:"keyi",role:"pet",name:"可以",en:"Keyi",breed:"",art:"gold",note:"傲嬌高冷的小公主，會自己開門，還教會小核桃開門。"},
@@ -355,7 +357,7 @@ const STATUS = {available:"可預約",talking:"洽談中",home:"已有家長",st
 const ROLE = {king:"種公",queen:"種母",kitten:"小貓",pet:"家裡的貓",grad:"畢業生"};
 
 /* ============ 1b. 資料儲存（原型：存在這台裝置的瀏覽器；正式版改接雲端資料庫） ============ */
-const STORE_KEY="fx-cats-v1", SITE_KEY="fx-site-v1";
+const STORE_KEY="fx-cats-v2", SITE_KEY="fx-site-v1";
 function loadCats(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){} return JSON.parse(JSON.stringify(DEFAULT_CATS)); }
 function saveCats(list){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(list)); return true; }catch(e){ return false; } }
 function loadSite(){ try{ const s=localStorage.getItem(SITE_KEY); if(s) return JSON.parse(s); }catch(e){} return {}; }
