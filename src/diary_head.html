@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>福信貓老大｜高雄無籠家庭貓舍</title>
+<meta name="description" content="高雄五層樓透天裡的無籠家庭貓舍，英國短毛貓、英國長毛貓與塞爾凱克捲毛貓。滿四個月、三劑疫苗、絕育康復才回新家，老大親自開車送到家。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&family=Iansui&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFDF6; --ink:#2E2A4F; --ink2:#5D5880; --dots:#DCD6C4;
+  --butter:#FFE38A; --sky:#BFDDF2; --berry:#F2877E; --mint:#BFE5CF; --lilac:#E4E1F2; --cream:#FFF4C9; --pink:#FBD3CE;
+  --round:"Huninn","Noto Sans TC",sans-serif; --hand:"Iansui","Huninn",cursive; --sans:"Noto Sans TC",system-ui,sans-serif;
+  --side:236px; --pop:3px 3px 0 var(--ink); --bw:2px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--sans);color:var(--ink);background-color:var(--paper);background-image:radial-gradient(var(--dots) 1.2px,transparent 1.3px);background-size:22px 22px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--berry);outline-offset:3px}
+svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{margin:0;font-family:var(--round);font-weight:400;line-height:1.25}
+p{margin:0}
+.hand{font-family:var(--hand)}
+.sub{color:var(--ink2)}
+.ol{stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.t1{background:var(--sky)}.t2{background:var(--butter)}.t3{background:var(--pink)}.t4{background:var(--mint)}.t5{background:var(--lilac)}
+
+.gtable{display:grid;gap:10px;margin-top:24px}
+.grow{display:grid;grid-template-columns:1.2fr .8fr 1.6fr;gap:16px;align-items:center;background:#fff;border:var(--bw) solid var(--ink);border-radius:14px;padding:14px 20px;box-shadow:var(--pop)}
+.grow b{font-family:var(--round);font-weight:400;font-size:17px}
+.grow small{display:block;font-size:12px;color:var(--ink2)}
+.grow .old{color:var(--ink2)}
+.grow .new{font-weight:700}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:28px}
+.fact{padding:20px 18px;border-radius:4px;box-shadow:0 6px 14px rgba(46,42,79,.12)}
+.fact b{display:block;font-family:var(--round);font-weight:400;font-size:19px;line-height:1.35;margin-bottom:6px}
+.fact span{font-size:14.5px;color:var(--ink2)}
+@media (max-width:980px){.facts{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.grow{grid-template-columns:1fr;gap:4px}.facts{grid-template-columns:1fr}}
+/* calm mode: less cartoon */
+body.calm{background-image:none;--pop:0 4px 14px rgba(46,42,79,.10);--bw:1px;--hand:"Huninn","Noto Sans TC",sans-serif}
+body.calm .ol{stroke-width:0}
+body.calm .olt{display:none}
+body.calm .tilt{transform:none!important}
+body.calm .tape{opacity:.45!important}
+body.calm .t1{background:#E3EEF5}body.calm .t2{background:#F8EFD2}body.calm .t3{background:#F7E6E2}body.calm .t4{background:#E3F1E8}body.calm .t5{background:#EDEBF5}
+body.calm .sticker{border-width:1px}
+
+/* side tabs */
+.side{position:fixed;inset:0 auto 0 0;width:var(--side);padding:28px 0 24px 22px;display:flex;flex-direction:column;gap:24px;z-index:30;overflow-y:auto;background:inherit}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;padding-right:22px}
+.logo .face{width:52px;height:52px;border-radius:50%;background:var(--butter);border:var(--bw) solid var(--ink);display:grid;place-items:center;overflow:hidden;flex:none}
+.logo b{font-family:var(--round);font-weight:400;font-size:21px;line-height:1.2}
+.tabs{display:flex;flex-direction:column;gap:7px}
+.tabs a{margin-right:20px;padding:8px 16px;border:var(--bw) solid var(--ink);border-left:0;border-radius:0 14px 14px 0;text-decoration:none;font-family:var(--round);font-size:16.5px;transition:margin .15s}
+.tabs a:hover{margin-right:12px}
+.tabs a.on{margin-right:0;font-weight:700;box-shadow:var(--pop)}
+.side-foot{margin-top:auto;padding-right:22px;display:flex;flex-direction:column;gap:12px}
+.zone{display:block;padding:12px 14px;background:#fff;border:2px dashed var(--ink);border-radius:14px;text-decoration:none}
+.zone b{display:block;font-family:var(--round);font-weight:400;font-size:17px}
+.zone span{font-size:13px;color:var(--ink2)}
+.mode{display:flex;border:var(--bw) solid var(--ink);border-radius:999px;overflow:hidden;font-size:13.5px}
+.mode button{flex:1;border:0;background:#fff;padding:7px 0}
+.mode button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border:var(--bw) solid var(--ink);border-radius:999px;background:#fff;text-decoration:none;font-weight:700;white-space:nowrap;box-shadow:var(--pop);transition:transform .12s}
+.btn:hover{transform:translate(-1px,-1px)}
+.btn.line{background:#06C755;color:#fff}
+.btn.berry{background:var(--berry)}
+.btn.ink{background:var(--ink);color:#fff}
+main{margin-left:var(--side)}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 5vw 0}
+.top,.mbar,.scrim{display:none}
+.proto{font-size:13.5px;padding:8px 5vw;background:var(--ink);color:#fff;display:flex;justify-content:space-between;gap:12px}
+.proto button{background:none;border:0;color:#fff;font-size:18px;line-height:1}
+section+section{margin-top:110px}
+.h2{font-size:clamp(30px,3.4vw,38px)}
+.note{font-family:var(--hand);font-size:19px;color:var(--ink2)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+.boss{position:relative;aspect-ratio:1;max-width:500px}
+.blob{position:absolute;inset:8% 6% 4% 6%;background:var(--sky);border-radius:46% 54% 50% 50%/52% 46% 54% 48%}
+.boss svg{position:relative}
+.sticker{position:absolute;padding:8px 14px;border:2px solid var(--ink);border-radius:999px;font-family:var(--round);font-size:14px;line-height:1.25;text-align:center}
+.bubble{position:relative;display:inline-block;padding:16px 22px;background:#fff;border:2.5px solid var(--ink);border-radius:22px;font-family:var(--round);font-size:21px;line-height:1.5;box-shadow:var(--pop)}
+.bubble::after{content:"";position:absolute;left:-15px;bottom:22px;width:22px;height:22px;background:#fff;border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
+body.calm .bubble,body.calm .bubble::after{border-width:1px}
+.hero h1{margin-top:26px;font-size:clamp(38px,4.6vw,56px)}
+.hero .lead{margin-top:12px;font-size:17px;max-width:26em}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+
+/* polaroid */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:46px 30px;margin-top:38px}
+.pol{position:relative;display:block;padding:12px 12px 16px;background:#fff;border:1.5px solid #DDD7C6;box-shadow:0 6px 14px rgba(46,42,79,.12);text-decoration:none}
+.pol .shot{display:grid;place-items:center;aspect-ratio:1}
+.tape{position:absolute;left:50%;top:-14px;width:94px;height:28px;margin-left:-47px;opacity:.85}
+.pol .tagst{position:absolute;right:-10px;top:24px;transform:rotate(10deg)}
+.pol .nm{display:block;margin-top:10px;font-family:var(--hand);font-size:30px;line-height:1.2}
+.pol .mt{display:block;font-size:14px;color:var(--ink2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips span{padding:1px 10px;border-radius:999px;background:var(--cream);font-size:13px}
+.pol.gone .shot{filter:grayscale(.6) opacity(.75)}
+.st-available{background:var(--mint)}.st-stay{background:var(--cream)}.st-talking{background:var(--butter)}.st-home{background:var(--lilac)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.filters button{padding:7px 16px;border:var(--bw) solid var(--ink);border-radius:999px;background:#fff;font-family:var(--round)}
+.filters button.on{background:var(--ink);color:#fff}
+
+/* rules note */
+.paper{position:relative;background:#fff;border:var(--bw) solid var(--ink);border-radius:6px;padding:28px 32px;box-shadow:var(--pop);background-image:repeating-linear-gradient(transparent 0 39px,#E7E2F2 39px 40px);background-position:0 18px}
+.rules{list-style:none;margin:0;padding:0}
+.rules li{display:grid;grid-template-columns:30px 1fr;gap:10px;line-height:40px}
+.rules li::before{content:"✓";font-family:var(--round);color:var(--berry);font-size:20px}
+.rules b{font-family:var(--round);font-weight:400}
+.split{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.sticky{background:var(--butter);padding:30px 28px 34px;box-shadow:0 10px 20px rgba(46,42,79,.14);font-family:var(--round);font-size:clamp(24px,2.6vw,30px);line-height:1.5}
+.sticky small{display:block;margin-top:14px;font-family:var(--hand);font-size:18px;color:var(--ink2)}
+
+/* route */
+.route{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 18px}
+.route li{position:relative}
+.route li::after{content:"";position:absolute;left:62px;right:-8px;top:27px;border-top:3px dashed var(--ink)}
+.route li:nth-child(3n)::after,.route li:last-child::after{display:none}
+.route .dot{position:relative;width:56px;height:56px;border-radius:50%;border:2.5px solid var(--ink);display:grid;place-items:center;font-family:var(--round);font-size:24px;z-index:1}
+.route b{display:block;margin:12px 0 2px;font-family:var(--round);font-weight:400;font-size:19px}
+.route span{font-size:15px;color:var(--ink2)}
+.jump{color:var(--ink);font-weight:700;text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--berry);text-underline-offset:4px}
+.jump:hover{background:var(--cream)}
+
+/* ticket */
+.ticket{display:flex;flex-wrap:wrap;background:var(--butter);border:2.5px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 var(--ink);overflow:hidden}
+body.calm .ticket{border-width:1px;box-shadow:var(--pop)}
+.ticket .a{flex:999 1 420px;padding:30px 34px}
+.ticket .b{flex:1 1 230px;padding:30px;border-left:3px dashed var(--ink);background:var(--cream);display:flex;flex-direction:column;justify-content:center;gap:12px}
+.dl{margin:0;display:grid;grid-template-columns:70px 1fr;gap:6px 14px;font-size:15px}
+.dl dt{color:var(--ink2)}.dl dd{margin:0}
+footer{margin-top:110px;padding-bottom:80px}
+
+/* profile */
+.crumbs{font-size:14px;color:var(--ink2);margin-bottom:26px}
+.prof{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:start}
+.prof .pol{padding:16px 16px 22px}
+.thumbs{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.thumbs button{width:72px;padding:5px 5px 12px;background:#fff;border:1.5px solid #DDD7C6;box-shadow:0 3px 8px rgba(46,42,79,.12)}
+.thumbs button[aria-current="true"]{border-color:var(--ink);border-width:2px}
+.thumbs .shot{aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
+.shot{overflow:hidden}
+img.photo{width:100%;height:100%;object-fit:cover;display:block}
+.idc{background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;box-shadow:var(--pop);overflow:hidden}
+.idc .hd{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:var(--butter);border-bottom:var(--bw) solid var(--ink);font-family:var(--round)}
+.idc dl{margin:0;padding:8px 22px 14px;display:grid;grid-template-columns:90px 1fr}
+.idc dt,.idc dd{margin:0;padding:9px 0;border-bottom:1.5px dashed #E1DCEB}
+.idc dt{color:var(--ink2);font-size:14px}
+.idc dd{font-family:var(--hand);font-size:19px}
+.idc h1{font-size:40px}
+.says{margin-top:22px;display:flex;gap:14px;align-items:flex-start}
+.says .face{flex:none;width:56px;height:56px;border-radius:50%;background:var(--butter);border:var(--bw) solid var(--ink);overflow:hidden;display:grid;place-items:center}
+.says .bubble{font-size:17px;padding:12px 16px}
+.pcta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.pcta .btn{flex:1}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.card{background:#fff;border:var(--bw) solid var(--ink);border-radius:16px;padding:24px;box-shadow:var(--pop)}
+.card h3{font-size:22px;margin-bottom:14px}
+.paws{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;font-size:15px;margin-bottom:10px}
+.paws i{display:flex;gap:6px}
+.paws svg{width:24px;height:24px}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.checks li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.checks li::before{content:"✓";flex:none;width:22px;height:22px;border:2px solid var(--ink);border-radius:6px;display:grid;place-items:center;font-size:13px;background:var(--mint);font-weight:700}
+.strip{display:flex;gap:22px;overflow-x:auto;padding:22px 6px 18px}
+.strip .pol{flex:0 0 150px;padding:8px 8px 12px}
+.strip .pol .nm{font-size:18px}
+.mini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.mini a{display:flex;gap:14px;align-items:center;text-decoration:none}
+.mini .shot{width:84px;height:84px;display:grid;place-items:center;border:var(--bw) solid var(--ink);border-radius:16px;flex:none}
+.shopnote{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center;margin-top:28px;padding:22px 26px;background:var(--cream);border:2px dashed var(--ink);border-radius:16px}
+
+/* form */
+.formcard{background:#fff;border:var(--bw) solid var(--ink);border-radius:18px;padding:26px;box-shadow:var(--pop)}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--ink2);margin-bottom:14px;font-family:var(--round)}
+input,select,textarea{font:inherit;font-family:var(--sans);font-size:16px;color:var(--ink);padding:11px 14px;border:var(--bw) solid var(--ink);border-radius:12px;background:var(--paper)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.preview{white-space:pre-wrap;background:var(--cream);border-radius:12px;padding:14px;font-size:14.5px;margin:14px 0}
+details{background:#fff;border:var(--bw) solid var(--ink);border-radius:14px;padding:0 20px;margin-bottom:10px}
+summary{cursor:pointer;padding:15px 0;font-family:var(--round);font-size:17px;list-style:none;display:flex;justify-content:space-between}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 16px;color:var(--ink2)}
+
+@media (max-width:980px){
+  .side{transform:translateX(-100%);transition:transform .25s;background:var(--paper);box-shadow:0 0 40px rgba(0,0,0,.18)}
+  body.menu .side{transform:none}
+  body.menu .scrim{display:block;position:fixed;inset:0;background:rgba(46,42,79,.35);z-index:25}
+  main{margin-left:0}
+  .top{display:flex;position:sticky;top:0;z-index:20;justify-content:space-between;align-items:center;padding:10px 5vw;background:rgba(255,253,246,.95);backdrop-filter:blur(8px);border-bottom:2px solid var(--ink)}
+  .top .logo{padding:0}
+  .top .logo .face{width:40px;height:40px}
+  .burger{width:44px;height:44px;border:var(--bw) solid var(--ink);border-radius:12px;background:#fff;font-size:18px}
+  .hero,.split,.prof,.two{grid-template-columns:1fr}
+  .boss{margin:0 auto;width:100%}
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--paper);border-top:2px solid var(--ink)}
+  .mbar .btn{flex:1;box-shadow:none}
+  footer{padding-bottom:110px}
+}
+@media (max-width:640px){
+  .route{grid-template-columns:1fr 1fr}
+  .route li::after{display:none}
+  .fgrid,.mini{grid-template-columns:1fr}
+  .paper{padding:22px 20px}
+  .rules li{line-height:1.6;padding:9px 0}
+  .paper{background-image:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<aside class="side" aria-label="主選單">
+  <a class="logo" href="#home"><span class="face" id="logoFace"></span><b>福信<br>貓老大</b></a>
+  <nav class="tabs" id="nav"></nav>
+  <div class="side-foot">
+    <a class="zone" id="shopLink" href="#" target="_blank" rel="noopener"><b>家長專區 ↗</b><span>福信家長的用品小舖</span></a>
+    <a class="btn line" id="sideLine" href="#" target="_blank" rel="noopener">LINE 聊聊</a>
+    <div class="mode" role="group" aria-label="畫風"><button type="button" data-mode="cute" aria-pressed="true">可愛</button><button type="button" data-mode="calm" aria-pressed="false">簡潔</button></div>
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
+<main>
+  <div class="proto" id="proto"><span>原型：內容整理自老大 2026 年的貼文，標「待確認」的請老大過目。左下角可以切換畫風。<a href="admin.html" style="color:#FFE38A;margin-left:8px">打開老大後台 ↗</a></span><button id="protoX" aria-label="關閉提示">×</button></div>
+  <div class="top"><a class="logo" href="#home"><span class="face" id="logoFace2"></span><b>福信貓老大</b></a><button class="burger" id="burger" aria-label="開啟選單">☰</button></div>
+  <div class="wrap" id="app"></div>
+</main>
+<div class="mbar"><a class="btn" href="#kittens">看小貓</a><a class="btn line" id="mLine" href="#" target="_blank" rel="noopener">LINE 聊聊</a></div>
+<script>

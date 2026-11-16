@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>福信貓老大｜老大後台（原型）</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2E2A4F;--ink2:#5D5880;--line:#E2DDEC;--bg:#F6F4EE;--card:#FFFFFF;--butter:#FFE38A;--mint:#BFE5CF;--pink:#FBD3CE;--lilac:#E4E1F2;--cream:#FFF4C9;--berry:#D8625A;--ok:#2F6B47;
+  --round:"Huninn","Noto Sans TC",sans-serif;--sans:"Noto Sans TC",system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid #F2877E;outline-offset:2px}
+svg{display:block;max-width:100%}
+.app{max-width:540px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+.t1{background:#BFDDF2}.t2{background:#FFE38A}.t3{background:#FBD3CE}.t4{background:#BFE5CF}.t5{background:#E4E1F2}
+header{position:sticky;top:0;z-index:10;background:rgba(246,244,238,.95);backdrop-filter:blur(8px);padding:calc(12px + env(safe-area-inset-top)) 18px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+header h1{margin:0;font-family:var(--round);font-weight:400;font-size:20px}
+header small{display:block;font-size:12px;color:var(--ink2);font-family:var(--sans)}
+.link{font-size:14px;font-weight:700;color:var(--ink);text-decoration:none;padding:8px 12px;border:1.5px solid var(--ink);border-radius:999px;background:#fff}
+.note{margin:14px 18px 0;padding:10px 14px;background:var(--cream);border-radius:12px;font-size:13px;color:var(--ink2)}
+.bar{display:flex;align-items:baseline;justify-content:space-between;padding:20px 18px 8px}
+.bar h2{margin:0;font-family:var(--round);font-weight:400;font-size:22px}
+.bar span{font-size:13px;color:var(--ink2)}
+.list{display:flex;flex-direction:column;gap:12px;padding:6px 18px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.item .top{display:flex;gap:12px;align-items:center;background:none;border:0;padding:0;text-align:left;width:100%}
+.thumb{width:64px;height:64px;border-radius:14px;overflow:hidden;flex:none;display:grid;place-items:center}
+.thumb img,.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.item b{font-family:var(--round);font-weight:400;font-size:19px;display:block}
+.item .sub{font-size:13px;color:var(--ink2)}
+.item .chev{margin-left:auto;font-size:20px;color:var(--ink2)}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg.two{grid-template-columns:repeat(2,1fr)}
+.seg button{min-height:40px;border:1.5px solid var(--line);background:#fff;border-radius:12px;font-size:13.5px;padding:6px 4px}
+.seg button[aria-pressed="true"]{border-color:var(--ink);font-weight:700}
+.seg button[data-v="available"][aria-pressed="true"]{background:var(--mint)}
+.seg button[data-v="talking"][aria-pressed="true"]{background:var(--butter)}
+.seg button[data-v="home"][aria-pressed="true"]{background:var(--lilac)}
+.seg button[data-v="stay"][aria-pressed="true"]{background:var(--cream)}
+.seg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fab{position:fixed;right:max(18px,calc(50% - 252px));bottom:calc(90px + env(safe-area-inset-bottom));z-index:11;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:14px 22px;font-weight:700;box-shadow:0 8px 20px rgba(46,42,79,.25)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:12;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs div{max-width:540px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs button{border:0;background:none;padding:10px 0 12px;font-size:12.5px;color:var(--ink2);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.tabs button i{font-style:normal;font-size:20px;line-height:1}
+nav.tabs button[aria-current="page"]{color:var(--ink);font-weight:700}
+/* edit */
+.form{padding:8px 18px 120px}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.field>span{font-size:13.5px;color:var(--ink2);font-weight:500}
+.field small{font-size:12px;color:var(--ink2)}
+input,select,textarea{font:inherit;font-size:16px;color:var(--ink);padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.group{margin-top:26px;padding-top:18px;border-top:1px dashed var(--line)}
+.group h3{margin:0;font-family:var(--round);font-weight:400;font-size:18px}
+.group p{margin:4px 0 0;font-size:13px;color:var(--ink2)}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.ph{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;display:grid;place-items:center}
+.ph .x{position:absolute;right:6px;top:6px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(46,42,79,.75);color:#fff;font-size:16px;line-height:1}
+.ph .cover{position:absolute;left:6px;bottom:6px;font-size:11px;background:#fff;border-radius:8px;padding:1px 7px}
+.ph .lbl{position:absolute;left:6px;bottom:6px;right:6px;font-size:12px;background:rgba(255,255,255,.9);border-radius:8px;padding:2px 7px;text-align:center}
+.add{border:2px dashed var(--line);background:#fff;color:var(--ink2);font-size:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.add i{font-style:normal;font-size:24px}
+.range{display:grid;grid-template-columns:56px 1fr 24px;gap:10px;align-items:center;margin-top:8px;font-size:14px}
+.range input{padding:0;border:0;accent-color:#2E2A4F}
+.actions{position:fixed;left:0;right:0;bottom:0;z-index:13;background:#fff;border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom))}
+.actions div{max-width:504px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;min-height:48px;border-radius:14px;border:1.5px solid var(--ink);background:#fff;font-weight:700;font-size:15.5px}
+.btn.pri{background:var(--ink);color:#fff}
+.btn.danger{border-color:var(--berry);color:var(--berry)}
+.btn.danger.sure{background:var(--berry);color:#fff}
+.btn.small{flex:none;min-height:40px;padding:0 14px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;z-index:20;background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.backbar{display:flex;align-items:center;gap:10px;padding:14px 18px 0}
+.backbar button{border:0;background:none;font-size:15px;font-weight:700;padding:6px 0}
+.preview-link{display:inline-block;margin-top:10px;font-size:14px;color:var(--ink);font-weight:700}
+.empty{margin:24px 18px;padding:28px;text-align:center;background:#fff;border-radius:18px;border:1px dashed var(--line);color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<nav class="tabs" aria-label="後台分頁"><div id="tabs"></div></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="filePick" accept="image/*" multiple hidden>
+<script>
+/* ============ 1. 貓舍資料（之後由後台 CMS 管理） ============
+   內容整理自老大 2026 年的 Threads 貼文。標「待確認」的請老大過目。 */
+const SITE = {
+  name:"福信貓老大", owner:"老大",
+  breeds:"英國短毛貓・英國長毛貓・塞爾凱克捲毛貓",
+  address:"高雄市（預約後提供詳細地址）",
+  hours:"全預約制，時間請 LINE 討論",
+  license:"特寵業繁字第 W1151148 號",
+  licenseCheck:"https://data.gov.tw/dataset/97070",
+  registry:"TICA／WCF（待確認）",
+  lineId:"@fuxincat",
+  shopUrl:"https://example.com/shop",
+  threads:"https://www.threads.com/@mokachiu",
+  facebook:"https://www.facebook.com/moka.chiu.2025",
+};
+const INCLUDES = [
+  "至少滿四個月，三劑核心疫苗打滿",
+  "爸媽與小貓都做 13 項遺傳疾病基因篩檢",
+  "毛色基因、血型基因檢測",
+  "交貓前三合一快篩、血液檢查",
+  "術前血檢＋氣體麻醉絕育，老大親自照顧到康復",
+  "基礎健康檢查證明、晶片登記過戶",
+  "老大親自開車送到家，不用寵物託運",
+  "娘家禮：德罐、K36 過渡糧 1kg、不鏽鋼貓砂盆、日本外出籠、貓砂、玩具",
+  "終身回娘家住宿免費，每月回來洗澡美容免費",
+  "老大到府探望：清耳朵、驅蟲（高屏地區）",
+];
+const GUARANTEE = [
+  ["貓瘟","7 天","2 個月"],
+  ["傳染性腹膜炎（FIP）","7 天，通常只換貓","1 年，全額退費，貓由老大帶回照顧一輩子"],
+  ["先天與遺傳疾病（HCM、PKD、PRA⋯）","180 天","終身，退費退貓"],
+];
+const PROMISES = ["一定要絕育","除了生病治療，不可以關籠","不可以蹓貓","不當店貓","哪天真的養不了，不棄養、不轉送，先聯絡老大"];
+const FACTS = [
+  ["柯南主題曲一響","全家的貓都會自己跑到餵食器前站好，因為要開飯了。"],
+  ["晚上 11 點熄燈","幼稚園的小貓會回房間睡覺，家裡沒有日夜顛倒的貓。"],
+  ["到新家最快 1 分鐘","打開外出籠就去吃飯，平均十分鐘。無籠長大的孩子不怕新環境。"],
+  ["福丸是一隻有小狗靈魂的喵","叫了就會自己走過來，把頭塞進你手裡討摸。"],
+];
+const STEPS = [
+  ["LINE 聊聊","老大會先問：養過貓嗎？能接受無籠飼養嗎？為什麼喜歡這隻？想回答哪些都可以。"],
+  ["來家裡互動","小貓打滿三劑、滿四個月後才開放互動。一定要本人來，一組一組。"],
+  ["遇到有緣的貓","互不勉強，貓願不願意跟你玩，牠自己決定。一趟不夠就兩趟。"],
+  ["簽約","簽老大的保固合約，你也要答應<a href=\"#process\" class=\"jump\" data-jump=\"promises\">老大的五件事</a>。（訂金方式待確認）"],
+  ["絕育與康復","術前血檢、氣麻絕育，老大親自照顧到康復，再體檢、洗香香。"],
+  ["老大親自送到家","再遠都開車送，順便確認新家的環境。"],
+];
+const FAQ = [
+  ["可以視訊看貓、直接匯款嗎？","不行。寧可不成交，也絕不隔空成交。每位家長都一定要來互動過，彼此確認養貓的想法。"],
+  ["為什麼要等到四個月才能帶走？","第一劑疫苗會被媽媽給的抗體干擾，要連打三劑才有完整保護力。小貓多跟媽媽待一陣子，情緒和社會化也更穩定。小貓不是越小越親人。"],
+  ["我住很遠，怎麼接貓？","老大親自開車送到你家，東部也一樣，不用寵物託運，也不搭高鐵。"],
+  ["回家之後有問題怎麼辦？","隨時 LINE 老大。畢業的孩子終身可以回娘家住宿，每月回來洗澡美容都免費。"],
+  ["可以帶回家當店貓、或是出門蹓貓嗎？","搭咩。也不可以關籠飼養。"],
+  ["有開發票嗎？","有。不管金額高低都開。"],
+  ["一定買得到嗎？","不一定。貓舍很小，很多孩子是自留的；理念不合的家長，出多少錢老大都不賣。"],
+];
+const ART = {
+  gold:   {base:"#E9CC95",shade:"#B98A4A",chest:"#F8EEDA",eye:"#5F9B54"},
+  purple: {base:"#E7D6B8",shade:"#A3909B",chest:"#F8F0E3",eye:"#5F9B54"},
+  cream:  {base:"#F3E6CF",shade:"#D2B07C",chest:"#FFFFFF",eye:"#4F86B8"},
+  van:    {base:"#FFFDF8",shade:"#E3B57A",chest:"#FFFFFF",eye:"#C8902E"},
+  white:  {base:"#FBF8F2",shade:"#D9D0C2",chest:"#FFFFFF",eye:"#C8902E"},
+  amber:  {base:"#D8AE73",shade:"#9E6C35",chest:"#F4E5C8",eye:"#6FA35A"},
+  calico: {base:"#F4EEE4",shade:"#C9874A",chest:"#FFFFFF",eye:"#C8902E"},
+  tux:    {base:"#3D3B44",shade:"#26242B",chest:"#FFFFFF",eye:"#C9B04A"},
+  bluewhite:{base:"#8E97A6",shade:"#6B7383",chest:"#FFFFFF",eye:"#C9B04A"},
+  choc:   {base:"#7A5642",shade:"#5A3D2E",chest:"#FFFFFF",eye:"#C9B04A"},
+  himalayan:{base:"#F1E6D8",shade:"#7A6656",chest:"#FFFFFF",eye:"#4F86B8"},
+};
+/* role: kitten | king | queen | pet | grad
+   status（小貓）：available 可預約 / talking 洽談中 / home 已有家長 / stay 自留 */
+const DEFAULT_CATS = [
+  {id:"maru",role:"king",name:"福丸",en:"Maru",breed:"英國短毛貓",color:"紫金 12 色（金漸層）",sex:"公",birthday:"2025-07-10",art:"purple",
+   traits:["小狗靈魂","呆萌老實","愛被摸頭"],scores:{黏人:5,活潑:3,話量:2,好奇:4},registry:"WCF／TICA 雙綠單",
+   tests:[["13 項遺傳疾病基因篩檢","（檢測機構待提供）","全數正常"],["毛色基因、血型基因","（待提供）","已檢測"]],
+   note:"我一直懷疑福丸其實是一隻紫金 12 色的小狗，只是我沒有證據。叫了就會走過來，把頭塞進你手裡。"},
+  {id:"vaseline",role:"king",name:"凡士林",en:"Vaseline",breed:"塞爾凱克捲毛貓（待確認）",color:"（待確認）",sex:"公",birthday:"",art:"white",
+   traits:["6 公斤","溫柔的胖子","愛被美容"],scores:{黏人:5,活潑:2,話量:2,好奇:3},registry:"（待提供）",
+   tests:[["13 項遺傳疾病基因篩檢","（檢測機構待提供）","全數正常"]],
+   note:"看起來很壯，很愛找公貓打架，對母貓和小貓卻超溫柔，放飯時還會讓她們先吃。拿出梳子，他就自己跳上桌趴好等美容。"},
+  {id:"queen",role:"queen",name:"（種母）",en:"Queens",breed:"（待老大提供）",color:"",sex:"母",birthday:"",art:"gold",
+   traits:["待提供"],scores:null,registry:"",tests:null,
+   note:"種母的名字與資料待老大提供。每位媽媽都有自己的房間，懷孕也不住籠子；一年最多一胎，早早退休。"},
+
+  {id:"tuoba",role:"kitten",status:"available",name:"拖把",en:"Tuoba",breed:"塞爾凱克捲毛貓",color:"（待確認）",sex:"公",birthday:"2026-05-15",ready:"已可回家（待確認）",
+   sire:"vaseline",dam:"queen",art:"white",traits:["沒節操","誰都可以摸","愛跳上腿"],scores:{黏人:5,活潑:4,話量:3,好奇:5},price:"請 LINE 詢問",
+   note:"跟弟弟抹布一樣，誰來都可以、誰摸都行，直接跳到人家腳上賣萌。長大以後臉會非常大，因為爸爸凡士林臉超大。（狀態待更新）"},
+  {id:"mobu",role:"kitten",status:"available",name:"抹布",en:"Mobu",breed:"塞爾凱克捲毛貓",color:"（待確認）",sex:"公",birthday:"2026-06-15",ready:"（待確認）",
+   sire:"vaseline",dam:"queen",art:"white",traits:["親人","愛玩","羊毛捲"],scores:{黏人:5,活潑:5,話量:3,好奇:4},price:"請 LINE 詢問",
+   note:"拖把的弟弟，一樣主打毫無原則，只要對方是個人都好。（狀態待更新）"},
+  {id:"suluofei",role:"kitten",status:"stay",name:"蘇洛妃",en:"Suluofei",breed:"（待確認）",color:"（待確認）",sex:"母",birthday:"2026-05-08",ready:"自留",
+   sire:"maru",dam:"queen",art:"cream",traits:["太親人","離不開老大"],scores:{黏人:5,活潑:3,話量:3,好奇:4},price:"不找家",
+   note:"這個孩子太親人，離不開我，我也離不開她，所以不找家。"},
+  {id:"mianhuatang",role:"kitten",status:"stay",name:"棉花糖",en:"Mianhuatang",breed:"（待確認）",color:"重點色",sex:"母",birthday:"2026-07-01",ready:"自留",
+   sire:"maru",dam:"queen",art:"himalayan",traits:["早上會叫人起床","愛咬逗貓棒"],scores:{黏人:5,活潑:5,話量:4,好奇:4},price:"不找家",
+   note:"每天一早咬著逗貓棒來床邊喵喵叫。她是我女兒的愛貓，所以不找家。"},
+
+  {id:"wangzai",role:"grad",name:"旺仔",en:"Wangzai",formerly:"蛋黃酥",breed:"英國短毛貓",color:"奶油加白梵色",sex:"公",birthday:"2026-05-28",home:"台中",art:"van",
+   note:"全家最聰明的貓，看到梳子就跑，看到罐罐就湊過來。到新家五分鐘就出來吃飯，現在被寵成蛋黃豬。"},
+  {id:"xuebao",role:"grad",name:"雪寶",en:"Xuebao",formerly:"OK",breed:"（待確認）",color:"",sex:"公",home:"高雄",art:"cream",
+   note:"到新家一分鐘就去偷吃原住民貓咪的碗，創下最快適應紀錄。老大每月去探望、清耳朵、驅蟲。"},
+  {id:"roubao",role:"grad",name:"肉包",en:"Roubao",breed:"（待確認）",color:"",sex:"",home:"（待確認）",art:"amber",
+   note:"離開好一陣子，再見面還是乖乖坐在老大腿上讓他清耳朵。"},
+  {id:"gongtang",role:"grad",name:"貢糖",en:"Gongtang",formerly:"龍五",breed:"英國長毛貓",color:"",sex:"公",birthday:"2026-05-08",home:"（待確認）",art:"gold",
+   note:"那一窩裡體格最好、骨架最大。回娘家洗澡時，自己走到小時候睡覺的位置躺好，家長要走時還帶不走。"},
+  {id:"shaoye",role:"grad",name:"少爺",en:"Shaoye",breed:"英國長毛貓",color:"",sex:"公",home:"台北",art:"cream",
+   note:"和妹妹小花一起去了大到會迷路的新家。老大只收了一包糖當聘金。"},
+  {id:"xiaohua",role:"grad",name:"小花",en:"Xiaohua",breed:"英國短毛貓",color:"",sex:"母",home:"台北",art:"gold",
+   note:"有次全家找她找了好久，最後發現她躺在椅子上睡到翻白肚。"},
+
+  {id:"keyi",role:"pet",name:"可以",en:"Keyi",breed:"",art:"gold",note:"傲嬌高冷的小公主，會自己開門，還教會小核桃開門。"},
+  {id:"buyao",role:"pet",name:"不要",en:"Buyao",breed:"",art:"bluewhite",note:"藍白賓士，家裡最撒嬌的貓。"},
+  {id:"mianmian",role:"pet",name:"麵麵",en:"Mianmian",breed:"",art:"choc",note:"三歲時收養的巧克力白賓士，從哈氣凶貓變成黏人精。"},
+  {id:"ouou",role:"pet",name:"歐歐",en:"Ouou",breed:"",art:"tux",note:"黑白賓士，會自己乖乖吃藥的天使小貓（也是神經病）。"},
+  {id:"hetao",role:"pet",name:"小核桃",en:"Hetao",breed:"塞爾凱克捲毛貓",art:"amber",note:"三歲多收養的捲毛妹妹，用監視器叫她吃飯就會過來站好。"},
+];
+const STATUS = {available:"可預約",talking:"洽談中",home:"已有家長",stay:"自留不找家"};
+const ROLE = {king:"種公",queen:"種母",kitten:"小貓",pet:"家裡的貓",grad:"畢業生"};
+
+/* ============ 1b. 資料儲存（原型：存在這台裝置的瀏覽器；正式版改接雲端資料庫） ============ */
+const STORE_KEY="fx-cats-v1", SITE_KEY="fx-site-v1";
+function loadCats(){ try{ const s=localStorage.getItem(STORE_KEY); if(s) return JSON.parse(s); }catch(e){} return JSON.parse(JSON.stringify(DEFAULT_CATS)); }
+function saveCats(list){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(list)); return true; }catch(e){ return false; } }
+function loadSite(){ try{ const s=localStorage.getItem(SITE_KEY); if(s) return JSON.parse(s); }catch(e){} return {}; }
+function saveSite(o){ try{ localStorage.setItem(SITE_KEY, JSON.stringify(o)); return true; }catch(e){ return false; } }
+function resetAll(){ try{ localStorage.removeItem(STORE_KEY); localStorage.removeItem(SITE_KEY); }catch(e){} }
+const DEFAULT_SITE = Object.assign({}, SITE);
+let CATS = loadCats();
+Object.assign(SITE, loadSite());
+/* ============ 2. helpers ============ */
+const byId = id => CATS.find(c=>c.id===id);
+const esc = s => String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const lineUrl = t => t ? `https://line.me/R/oaMessage/${encodeURIComponent(SITE.lineId)}/?${encodeURIComponent(t)}` : `https://line.me/R/ti/p/${encodeURIComponent(SITE.lineId)}`;
+const tints = ["t1","t2","t3","t4","t5"];
+const tintOf = c => tints[Math.max(0,CATS.indexOf(c))%5];
+function ageText(b){
+  if(!b) return "";
+  const d=new Date(b), n=new Date(); const days=Math.floor((n-d)/864e5);
+  if(days<0) return "即將出生"; if(days<140) return `${Math.max(1,Math.floor(days/7))} 週大`;
+  const m=(n.getFullYear()-d.getFullYear())*12+n.getMonth()-d.getMonth()-(n.getDate()<d.getDate()?1:0);
+  return m<24?`${m} 個月大`:`${Math.floor(m/12)} 歲`;
+}
+function cat(artKey,size=120,{sleep=false}={}){
+  const a=ART[artKey]||ART.gold;
+  const eyes = sleep
+    ? `<path d="M76 86 q8 6 16 0 M108 86 q8 6 16 0" stroke="#3A2A22" stroke-width="3" fill="none" stroke-linecap="round"/>`
+    : `<ellipse cx="84" cy="86" rx="8" ry="9" fill="${a.eye}"/><ellipse cx="116" cy="86" rx="8" ry="9" fill="${a.eye}"/><ellipse cx="84" cy="87" rx="3" ry="6" fill="#1E1A18"/><ellipse cx="116" cy="87" rx="3" ry="6" fill="#1E1A18"/><circle cx="86.5" cy="83" r="2.2" fill="#fff"/><circle cx="118.5" cy="83" r="2.2" fill="#fff"/>`;
+  return `<svg viewBox="0 0 200 200" width="${size}" height="${size}" aria-hidden="true">
+  <ellipse cx="100" cy="190" rx="62" ry="6" fill="#000" opacity=".06"/>
+  <path class="olt" d="M144 170 C192 164 194 108 166 98" stroke="#2E2A4F" stroke-width="23" fill="none" stroke-linecap="round"/><path d="M144 170 C192 164 194 108 166 98" stroke="${a.shade}" stroke-width="17" fill="none" stroke-linecap="round"/>
+  <ellipse class="ol" cx="100" cy="150" rx="58" ry="42" fill="${a.base}"/>
+  <path d="M50 140 Q100 108 150 140" stroke="${a.shade}" stroke-width="10" fill="none" opacity=".35" stroke-linecap="round"/>
+  <ellipse cx="100" cy="154" rx="26" ry="30" fill="${a.chest}"/>
+  <ellipse class="ol" cx="78" cy="186" rx="16" ry="9" fill="${a.chest}"/><ellipse class="ol" cx="122" cy="186" rx="16" ry="9" fill="${a.chest}"/>
+  <path class="ol" d="M58 70 L64 34 L92 52 Z" fill="${a.base}"/><path class="ol" d="M142 70 L136 34 L108 52 Z" fill="${a.base}"/>
+  <path d="M64 34 L72 46 L66 50 Z M136 34 L128 46 L134 50 Z" fill="${a.shade}"/>
+  <path d="M66 62 L68 44 L84 54 Z M134 62 L132 44 L116 54 Z" fill="#EFB3A6" opacity=".75"/>
+  <ellipse class="ol" cx="100" cy="88" rx="50" ry="44" fill="${a.base}"/>
+  <path d="M70 58 Q100 44 130 58" stroke="${a.shade}" stroke-width="9" fill="none" opacity=".4" stroke-linecap="round"/>
+  <ellipse cx="88" cy="106" rx="13" ry="10" fill="${a.chest}"/><ellipse cx="112" cy="106" rx="13" ry="10" fill="${a.chest}"/>
+  ${eyes}
+  <path d="M95 99 h10 l-5 5 z" fill="#D98B7E"/>
+  <path d="M100 104 v4 M100 108 q-5 5 -10 2 M100 108 q5 5 10 2" stroke="#3A2A22" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".6"/>
+  </svg>`;
+}
+const ph = (c,size,cls="",cap="") => `<div class="ph ${tintOf(c)} ${cls}">${pic(c,size)}${cap?`<span class="cap">${cap}</span>`:""}</div>`;
+const lic = () => `<span class="license">${esc(SITE.license)}，<a href="${SITE.licenseCheck}" target="_blank" rel="noopener">到政府合法業者名單查證 ↗</a></span>`;
+
+
+/* 有照片用照片，沒有就用插畫 */
+function pic(c,size,opts={},idx=0){
+  const p=(c.photos||[])[idx];
+  return p ? `<img class="photo" src="${p}" alt="${esc(c.name)}的照片">` : cat(c.art,size,opts);
+}
+
+/* ============ 老大後台（原型） ============ */
+const TABS=[["kitten","小貓","🐾"],["breeder","種貓","👑"],["grad","畢業生","🎓"],["pet","家裡的貓","🏠"],["settings","設定","⚙︎"]];
+const ROLE_OF_TAB={kitten:["kitten"],breeder:["king","queen"],grad:["grad"],pet:["pet"]};
+const BREEDS=["英國短毛貓","英國長毛貓","塞爾凱克捲毛貓"];
+const SCORE_KEYS=["黏人","活潑","話量","好奇"];
+let tab="kitten", editing=null, draft=null, pickMode=null, sureDelete=false;
+
+const $app=document.getElementById("app");
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),2200); }
+function persist(okMsg){ if(saveCats(CATS)){ if(okMsg) toast(okMsg); return true; } toast("空間不夠：原型只能存少量照片，請先刪掉幾張"); return false; }
+const thumb = c => `<span class="thumb ${tintOf(c)}">${pic(c,56)}</span>`;
+const subOf = c => [c.breed,c.color,c.birthday?ageText(c.birthday):"",c.role==="grad"&&c.home?`住在${c.home}`:""].filter(Boolean).join("，");
+
+function drawTabs(){
+  document.getElementById("tabs").innerHTML=TABS.map(t=>`<button type="button" data-tab="${t[0]}" ${t[0]===tab&&!editing?'aria-current="page"':""}><i aria-hidden="true">${t[2]}</i>${t[1]}</button>`).join("");
+}
+function header(){
+  return `<header><h1>老大後台<small>福信貓老大・原型</small></h1><a class="link" href="index.html" target="_blank" rel="noopener">看前台 ↗</a></header>`;
+}
+
+/* ---------- 列表 ---------- */
+function listView(){
+  const roles=ROLE_OF_TAB[tab]; const items=CATS.filter(c=>roles.includes(c.role));
+  const title={kitten:"小貓",breeder:"種公與種母",grad:"畢業生",pet:"家裡的貓"}[tab];
+  const statusRow = c => `<div class="seg" role="group" aria-label="${esc(c.name)}的狀態">${Object.entries(STATUS).map(([k,v])=>`<button type="button" data-status="${k}" data-id="${c.id}" data-v="${k}" aria-pressed="${c.status===k}">${v}</button>`).join("")}</div>`;
+  return header()+
+   (tab==="kitten"?`<p class="note">點一下狀態就會更新，前台馬上跟著變。點小貓可以改資料、上傳照片和成長紀錄。</p>`:"")+
+   `<div class="bar"><h2>${title}</h2><span>${items.length} 隻</span></div>
+    <div class="list">${items.length?items.map(c=>`<div class="item">
+      <button type="button" class="top" data-edit="${c.id}">${thumb(c)}<span><b>${esc(c.name)}</b><span class="sub">${esc(subOf(c))||"（資料待補）"}</span></span><span class="chev" aria-hidden="true">›</span></button>
+      ${c.role==="kitten"?statusRow(c):""}</div>`).join(""):`<div class="empty">這裡還沒有貓。按右下角「新增」開始吧。</div>`}</div>
+    <button type="button" class="fab" data-new="${tab}">＋ 新增</button>`;
+}
+
+/* ---------- 編輯 ---------- */
+function newCat(t){
+  const role={kitten:"kitten",breeder:"queen",grad:"grad",pet:"pet"}[t]||"kitten";
+  return {id:"c"+Date.now().toString(36),role,status:"available",name:"",en:"",breed:BREEDS[0],color:"",sex:"公",birthday:"",ready:"",price:"請 LINE 詢問",
+    sire:"",dam:"",art:"gold",traits:[],scores:{黏人:3,活潑:3,話量:3,好奇:3},note:"",photos:[],timeline:[]};
+}
+function opt(list,val){ return list.map(o=>{const [v,l]=Array.isArray(o)?o:[o,o]; return `<option value="${esc(v)}" ${v===val?"selected":""}>${esc(l)}</option>`;}).join(""); }
+function editView(){
+  const c=draft, isNew=!CATS.some(x=>x.id===c.id);
+  const kings=CATS.filter(x=>x.role==="king").map(x=>[x.id,x.name]), queens=CATS.filter(x=>x.role==="queen").map(x=>[x.id,x.name]);
+  const photos=(c.photos||[]).map((p,i)=>`<div class="ph"><img src="${p}" alt="照片 ${i+1}"><button type="button" class="x" data-delphoto="${i}" aria-label="刪除第 ${i+1} 張照片">×</button>${i===0?'<span class="cover">封面</span>':""}</div>`).join("");
+  const tl=(c.timeline||[]).map((w,i)=>`<div class="ph"><img src="${w.img}" alt="${esc(w.label)}"><button type="button" class="x" data-deltl="${i}" aria-label="刪除這張成長照片">×</button><span class="lbl">${esc(w.label)}</span></div>`).join("");
+  return `<div class="backbar"><button type="button" data-back>‹ 返回</button></div>
+  <form class="form" id="editForm" autocomplete="off">
+    <h2 style="margin:6px 0 0;font-family:var(--round);font-weight:400;font-size:26px">${isNew?"新增一隻貓":esc(c.name||"未命名")}</h2>
+    ${!isNew?`<a class="preview-link" href="index.html#cat-${c.id}" target="_blank" rel="noopener">在前台看${esc(c.name)} ↗</a>`:""}
+
+    <div class="group" style="margin-top:18px;border:0;padding:0"><h3>照片</h3><p>第一張是封面。手機可以直接拍照上傳。</p>
+      <div class="photos">${photos}<button type="button" class="ph add" data-pick="photos"><i aria-hidden="true">＋</i>加照片</button></div></div>
+
+    ${c.role==="kitten"?`<div class="field"><span>狀態</span><div class="seg">${Object.entries(STATUS).map(([k,v])=>`<button type="button" data-dstatus="${k}" data-v="${k}" aria-pressed="${c.status===k}">${v}</button>`).join("")}</div></div>`:""}
+
+    <div class="row2"><label class="field"><span>名字</span><input name="name" value="${esc(c.name)}" required placeholder="例：湯圓"></label>
+      <label class="field"><span>英文／拼音</span><input name="en" value="${esc(c.en)}" placeholder="例：Tangyuan"></label></div>
+    <label class="field"><span>身分</span><select name="role">${opt([["kitten","小貓"],["king","種公"],["queen","種母"],["grad","畢業生（已回新家）"],["pet","家裡的貓"]],c.role)}</select><small>小貓畢業了，改成「畢業生」就會搬到畢業生牆。</small></label>
+    <div class="row2"><label class="field"><span>品種</span><input name="breed" list="breeds" value="${esc(c.breed)}"><datalist id="breeds">${BREEDS.map(b=>`<option value="${b}">`).join("")}</datalist></label>
+      <label class="field"><span>毛色</span><input name="color" value="${esc(c.color)}" placeholder="例：奶油加白梵色"></label></div>
+    <div class="row2"><div class="field"><span>性別</span><div class="seg two">${["公","母"].map(s=>`<button type="button" data-sex="${s}" class="${c.sex===s?"on":""}" aria-pressed="${c.sex===s}">${s==="公"?"♂ 弟弟":"♀ 妹妹"}</button>`).join("")}</div></div>
+      <label class="field"><span>生日</span><input type="date" name="birthday" value="${esc(c.birthday)}"></label></div>
+
+    ${c.role==="kitten"?`<div class="row2"><label class="field"><span>預計回家</span><input name="ready" value="${esc(c.ready)}" placeholder="例：12 月底"></label>
+      <label class="field"><span>價格</span><input name="price" value="${esc(c.price)}" placeholder="例：請 LINE 詢問"></label></div>
+      <div class="row2"><label class="field"><span>爸爸</span><select name="sire"><option value="">（未選）</option>${opt(kings,c.sire)}</select></label>
+      <label class="field"><span>媽媽</span><select name="dam"><option value="">（未選）</option>${opt(queens,c.dam)}</select></label></div>`:""}
+    ${c.role==="grad"?`<div class="row2"><label class="field"><span>在老大家時的名字</span><input name="formerly" value="${esc(c.formerly||"")}" placeholder="例：蛋黃酥"></label>
+      <label class="field"><span>新家在哪</span><input name="home" value="${esc(c.home||"")}" placeholder="例：台中"></label></div>`:""}
+    ${c.role==="king"||c.role==="queen"?`<label class="field"><span>協會註冊</span><input name="registry" value="${esc(c.registry||"")}" placeholder="例：WCF／TICA 雙綠單"></label>`:""}
+
+    <label class="field"><span>老大說</span><textarea name="note" rows="3" placeholder="用一兩句話介紹牠，前台會變成老大的對話框">${esc(c.note)}</textarea></label>
+    <label class="field"><span>個性標籤</span><input name="traits" value="${esc((c.traits||[]).join("、"))}" placeholder="用頓號分開，例：黏人、膽大、愛踩踩"></label>
+
+    ${c.role!=="pet"&&c.role!=="grad"?`<div class="group"><h3>個性小檔案</h3><p>前台會顯示成貓掌，1 到 5 分。</p>
+      ${SCORE_KEYS.map(k=>`<label class="range"><span>${k}</span><input type="range" min="1" max="5" step="1" name="score_${k}" value="${(c.scores||{})[k]||3}" data-out="out_${k}"><b id="out_${k}">${(c.scores||{})[k]||3}</b></label>`).join("")}</div>`:""}
+
+    ${c.role==="kitten"?`<div class="group"><h3>成長紀錄</h3><p>每週拍一張，寫上幾週大，前台會依序貼成拍立得。</p>
+      <div class="row2" style="margin-top:10px"><input id="tlLabel" placeholder="例：8 週" aria-label="這張成長照片是幾週大"><button type="button" class="btn small" data-pick="timeline">＋ 上傳這週的照片</button></div>
+      <div class="photos">${tl||'<p style="grid-column:1/-1;font-size:13px;color:var(--ink2);margin:6px 0">還沒有成長照片。</p>'}</div></div>`:""}
+
+    ${!isNew?`<div class="group"><button type="button" class="btn danger ${sureDelete?"sure":""}" data-delete style="width:100%">${sureDelete?`確定刪除${esc(c.name)}？再按一次`:"刪除這隻貓"}</button></div>`:""}
+  </form>
+  <div class="actions"><div><button type="button" class="btn" data-back>取消</button><button type="submit" form="editForm" class="btn pri">儲存</button></div></div>`;
+}
+
+/* ---------- 設定 ---------- */
+function settingsView(){
+  let used=0; try{ used=((localStorage.getItem(STORE_KEY)||"").length+(localStorage.getItem(SITE_KEY)||"").length)*2/1024/1024; }catch(e){}
+  return header()+`<form class="form" id="siteForm"><h2 style="margin:16px 0 0;font-family:var(--round);font-weight:400;font-size:22px">貓舍資料</h2>
+    <label class="field"><span>LINE 官方帳號 ID</span><input name="lineId" value="${esc(SITE.lineId)}"></label>
+    <label class="field"><span>地址（前台顯示）</span><input name="address" value="${esc(SITE.address)}"></label>
+    <label class="field"><span>預約時間</span><input name="hours" value="${esc(SITE.hours)}"></label>
+    <label class="field"><span>家長專區商店網址</span><input name="shopUrl" value="${esc(SITE.shopUrl)}"></label>
+    <button type="submit" class="btn pri" style="width:100%;margin-top:18px">儲存貓舍資料</button>
+    <div class="group"><h3>關於這個原型</h3><p>資料存在這台裝置的瀏覽器裡（目前用了 ${used.toFixed(1)} MB，上限約 5 MB），別台裝置看不到。正式版會接雲端資料庫，老大在手機改完，所有人都看得到，照片也不限量。</p>
+      <button type="button" class="btn danger ${sureDelete?"sure":""}" data-reset style="width:100%;margin-top:14px">${sureDelete?"確定清除所有修改？再按一次":"清除所有修改，回到範例資料"}</button></div>
+  </form>`;
+}
+
+/* ---------- render ---------- */
+function render(){
+  $app.innerHTML = editing ? editView() : tab==="settings" ? settingsView() : listView();
+  drawTabs();
+}
+
+/* ---------- 照片：壓縮後存成 data URL ---------- */
+function shrink(file,max=900){
+  return new Promise((res,rej)=>{ const img=new Image(); const url=URL.createObjectURL(file);
+    img.onload=()=>{ const s=Math.min(1,max/Math.max(img.width,img.height)); const cv=document.createElement("canvas");
+      cv.width=Math.round(img.width*s); cv.height=Math.round(img.height*s); cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);
+      URL.revokeObjectURL(url); res(cv.toDataURL("image/jpeg",.8)); };
+    img.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("讀不到這張圖")); }; img.src=url; });
+}
+function readForm(){
+  const f=document.getElementById("editForm"); if(!f) return; const d=Object.fromEntries(new FormData(f));
+  ["name","en","breed","color","birthday","ready","price","sire","dam","formerly","home","registry","note"].forEach(k=>{ if(k in d) draft[k]=d[k].trim(); });
+  if(d.role) draft.role=d.role;
+  if("traits" in d) draft.traits=d.traits.split(/[、,，\s]+/).map(s=>s.trim()).filter(Boolean);
+  if(SCORE_KEYS.some(k=>("score_"+k) in d)){ draft.scores={}; SCORE_KEYS.forEach(k=>draft.scores[k]=+d["score_"+k]||3); }
+}
+document.getElementById("filePick").addEventListener("change",async e=>{
+  const files=[...e.target.files]; e.target.value=""; if(!files.length) return;
+  readForm(); toast("處理照片中⋯");
+  try{
+    for(const f of files){ const url=await shrink(f);
+      if(pickMode==="timeline"){ const lb=(document.getElementById("tlLabel")||{}).value||`第 ${(draft.timeline||[]).length+1} 張`; (draft.timeline=draft.timeline||[]).push({label:lb.trim(),img:url}); }
+      else (draft.photos=draft.photos||[]).push(url); }
+    toast("照片加好了，記得按儲存");
+  }catch(err){ toast(err.message); }
+  render();
+});
+
+/* ---------- 事件 ---------- */
+$app.addEventListener("click",e=>{
+  const b=e.target.closest("button,a"); if(!b) return;
+  if(b.dataset.status){ const c=byId(b.dataset.id); c.status=b.dataset.status; persist(`${c.name} → ${STATUS[c.status]}，前台已更新`); render(); return; }
+  if(b.dataset.edit){ editing=b.dataset.edit; draft=JSON.parse(JSON.stringify(byId(editing))); sureDelete=false; render(); scrollTo(0,0); return; }
+  if(b.dataset.new){ draft=newCat(b.dataset.new); editing=draft.id; sureDelete=false; render(); scrollTo(0,0); return; }
+  if("back" in b.dataset){ editing=null; draft=null; sureDelete=false; render(); return; }
+  if(b.dataset.pick){ pickMode=b.dataset.pick; const fp=document.getElementById("filePick"); fp.multiple=pickMode==="photos"; fp.click(); return; }
+  if(b.dataset.delphoto){ readForm(); draft.photos.splice(+b.dataset.delphoto,1); render(); return; }
+  if(b.dataset.deltl){ readForm(); draft.timeline.splice(+b.dataset.deltl,1); render(); return; }
+  if(b.dataset.dstatus){ readForm(); draft.status=b.dataset.dstatus; render(); return; }
+  if(b.dataset.sex){ readForm(); draft.sex=b.dataset.sex; render(); return; }
+  if("delete" in b.dataset){ if(!sureDelete){ sureDelete=true; readForm(); render(); return; }
+    const name=draft.name; CATS=CATS.filter(x=>x.id!==draft.id); persist(`已刪除${name}`); editing=null; draft=null; sureDelete=false; render(); return; }
+  if("reset" in b.dataset){ if(!sureDelete){ sureDelete=true; render(); return; }
+    resetAll(); CATS=loadCats(); Object.assign(SITE,DEFAULT_SITE); sureDelete=false; toast("已回到範例資料"); render(); return; }
+});
+$app.addEventListener("input",e=>{ const o=e.target.dataset&&e.target.dataset.out; if(o) document.getElementById(o).textContent=e.target.value; });
+$app.addEventListener("submit",e=>{
+  e.preventDefault();
+  if(e.target.id==="siteForm"){ const d=Object.fromEntries(new FormData(e.target)); Object.assign(SITE,d); saveSite(d)?toast("貓舍資料已儲存"):toast("儲存失敗"); return; }
+  readForm(); if(!draft.name){ toast("請先填名字"); return; }
+  const i=CATS.findIndex(x=>x.id===draft.id); const isNew=i<0;
+  if(isNew) CATS.push(draft); else CATS[i]=draft;
+  if(persist(isNew?`已新增${draft.name}，前台已更新`:`已儲存${draft.name}，前台已更新`)){
+    const t=Object.entries(ROLE_OF_TAB).find(([k,v])=>v.includes(draft.role)); if(t) tab=t[0];
+    editing=null; draft=null; sureDelete=false; render(); scrollTo(0,0);
+  }
+});
+document.getElementById("tabs").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; tab=b.dataset.tab; editing=null; draft=null; sureDelete=false; render(); scrollTo(0,0); });
+addEventListener("storage",e=>{ if(e.key===STORE_KEY && !editing){ CATS=loadCats(); render(); } });
+render();
+</script>
+</body>
+</html>
