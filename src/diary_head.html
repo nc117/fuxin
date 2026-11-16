@@ -149,6 +149,8 @@ footer{margin-top:110px;padding-bottom:80px}
 .thumbs .shot{aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
 .shot{overflow:hidden}
 img.photo{width:100%;height:100%;object-fit:cover;display:block}
+.shot{position:relative}
+.shot>img.photo{position:absolute;inset:0}
 .zoomable{cursor:zoom-in}
 #pmain.zoomable{position:relative}
 #pmain.zoomable::after{content:"點一下看大圖";position:absolute;right:10px;bottom:10px;font-size:12.5px;background:rgba(46,42,79,.72);color:#fff;padding:3px 10px;border-radius:999px;opacity:0;transition:opacity .2s}

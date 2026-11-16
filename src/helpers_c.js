@@ -41,5 +41,6 @@ const lic = () => `<span class="license">${esc(SITE.license)}，<a href="${SITE.
 /* 有照片用照片，沒有就用插畫 */
 function pic(c,size,opts={},idx=0){
   const p=(c.photos||[])[idx];
-  return p ? `<img class="photo" src="${p}" alt="${esc(c.name)}的照片">` : cat(c.art,size,opts);
+  const pos=(c.photoPos||[])[idx];
+  return p ? `<img class="photo" src="${p}" alt="${esc(c.name)}的照片"${pos?` style="object-position:${pos}"`:""}>` : cat(c.art,size,opts);
 }

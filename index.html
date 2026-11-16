@@ -149,6 +149,8 @@ footer{margin-top:110px;padding-bottom:80px}
 .thumbs .shot{aspect-ratio:1;display:grid;place-items:center;overflow:hidden}
 .shot{overflow:hidden}
 img.photo{width:100%;height:100%;object-fit:cover;display:block}
+.shot{position:relative}
+.shot>img.photo{position:absolute;inset:0}
 .zoomable{cursor:zoom-in}
 #pmain.zoomable{position:relative}
 #pmain.zoomable::after{content:"點一下看大圖";position:absolute;right:10px;bottom:10px;font-size:12.5px;background:rgba(46,42,79,.72);color:#fff;padding:3px 10px;border-radius:999px;opacity:0;transition:opacity .2s}
@@ -360,7 +362,8 @@ const DEFAULT_CATS = [
    photos:["img/shaoye-1.jpg","img/shaoye-2.jpg","img/shaoye-3.jpg","img/shaoye-4.jpg","img/shaoye-5.jpg"],
    note:"和妹妹小花一起去了大到會迷路的新家。老大只收了一包糖當聘金。"},
   {id:"xiaohua",role:"grad",name:"小花",en:"Xiaohua",breed:"英國短毛貓",color:"藍白雙色",sex:"母",home:"台北",art:"bluewhite",
-   photos:["img/xiaohua-1.jpg","img/xiaohua-2.jpg","img/xiaohua-3.jpg","img/xiaohua-4.jpg","img/xiaohua-5.jpg"],
+   photos:["img/xiaohua-5.jpg","img/xiaohua-1.jpg","img/xiaohua-2.jpg","img/xiaohua-3.jpg","img/xiaohua-4.jpg"],
+   photoPos:["50% 72%"],
    note:"有次全家找她找了好久，最後發現她躺在椅子上睡到翻白肚。"},
 
   {id:"keyi",role:"pet",name:"可以",en:"Keyi",breed:"",art:"gold",note:"傲嬌高冷的小公主，會自己開門，還教會小核桃開門。"},
@@ -425,7 +428,8 @@ const lic = () => `<span class="license">${esc(SITE.license)}，<a href="${SITE.
 /* 有照片用照片，沒有就用插畫 */
 function pic(c,size,opts={},idx=0){
   const p=(c.photos||[])[idx];
-  return p ? `<img class="photo" src="${p}" alt="${esc(c.name)}的照片">` : cat(c.art,size,opts);
+  const pos=(c.photoPos||[])[idx];
+  return p ? `<img class="photo" src="${p}" alt="${esc(c.name)}的照片"${pos?` style="object-position:${pos}"`:""}>` : cat(c.art,size,opts);
 }
 
 /* ============ 3. diary pieces ============ */
@@ -676,7 +680,7 @@ function bind(){
     document.getElementById("list").innerHTML=l.length?l.map(pol).join(""):`<div class="card" style="grid-column:1/-1;text-align:center"><div style="max-width:160px;margin:0 auto">${boss(160)}</div><h3 style="margin-top:8px">這一頁還是空的</h3><p class="sub" style="margin:6px 0 16px">老大在睡覺。加入通知名單，有新小貓我第一個告訴你。</p><a class="btn line" href="${lineUrl("我想加入新小貓通知名單")}" target="_blank" rel="noopener">加入通知名單</a></div>`;};
   const th=document.querySelector(".thumbs");
   if(th) th.onclick=e=>{const b=e.target.closest("button"); if(!b) return; th.querySelectorAll("button").forEach(x=>x.setAttribute("aria-current",x===b));
-    const pm=document.getElementById("pmain"); pm.className="shot "+b.querySelector(".shot").classList[1]+(b.querySelector("img")?" zoomable":""); pm.dataset.i=b.dataset.i; const im=b.querySelector("img"); if(im) pm.innerHTML=`<img class="photo" src="${im.src}" alt="">`; document.getElementById("pcap").textContent=`照片 ${+b.dataset.i+1} / ${th.children.length}`;};
+    const pm=document.getElementById("pmain"); pm.className="shot "+b.querySelector(".shot").classList[1]+(b.querySelector("img")?" zoomable":""); pm.dataset.i=b.dataset.i; const im=b.querySelector("img"); if(im) pm.innerHTML=`<img class="photo" src="${im.src}" alt="" style="${im.getAttribute("style")||""}">`; document.getElementById("pcap").textContent=`照片 ${+b.dataset.i+1} / ${th.children.length}`;};
   const form=document.getElementById("bookForm");
   if(form) form.onsubmit=e=>{e.preventDefault(); const d=Object.fromEntries(new FormData(form));
     const msg=`你好，我想約時間去福信貓老大互動。\n稱呼：${d.name}\n電話：${d.phone}\n想認識：${d.cat}\n方便時間：${d.date||"可再討論"} ${d.slot}\n養貓經驗與家裡寵物：${d.home||"（未填）"}\n能接受無籠飼養：${d.nocage}\n喜歡上牠的原因：${d.why||"（未填）"}`;

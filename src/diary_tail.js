@@ -247,7 +247,7 @@ function bind(){
     document.getElementById("list").innerHTML=l.length?l.map(pol).join(""):`<div class="card" style="grid-column:1/-1;text-align:center"><div style="max-width:160px;margin:0 auto">${boss(160)}</div><h3 style="margin-top:8px">這一頁還是空的</h3><p class="sub" style="margin:6px 0 16px">老大在睡覺。加入通知名單，有新小貓我第一個告訴你。</p><a class="btn line" href="${lineUrl("我想加入新小貓通知名單")}" target="_blank" rel="noopener">加入通知名單</a></div>`;};
   const th=document.querySelector(".thumbs");
   if(th) th.onclick=e=>{const b=e.target.closest("button"); if(!b) return; th.querySelectorAll("button").forEach(x=>x.setAttribute("aria-current",x===b));
-    const pm=document.getElementById("pmain"); pm.className="shot "+b.querySelector(".shot").classList[1]+(b.querySelector("img")?" zoomable":""); pm.dataset.i=b.dataset.i; const im=b.querySelector("img"); if(im) pm.innerHTML=`<img class="photo" src="${im.src}" alt="">`; document.getElementById("pcap").textContent=`照片 ${+b.dataset.i+1} / ${th.children.length}`;};
+    const pm=document.getElementById("pmain"); pm.className="shot "+b.querySelector(".shot").classList[1]+(b.querySelector("img")?" zoomable":""); pm.dataset.i=b.dataset.i; const im=b.querySelector("img"); if(im) pm.innerHTML=`<img class="photo" src="${im.src}" alt="" style="${im.getAttribute("style")||""}">`; document.getElementById("pcap").textContent=`照片 ${+b.dataset.i+1} / ${th.children.length}`;};
   const form=document.getElementById("bookForm");
   if(form) form.onsubmit=e=>{e.preventDefault(); const d=Object.fromEntries(new FormData(form));
     const msg=`你好，我想約時間去福信貓老大互動。\n稱呼：${d.name}\n電話：${d.phone}\n想認識：${d.cat}\n方便時間：${d.date||"可再討論"} ${d.slot}\n養貓經驗與家裡寵物：${d.home||"（未填）"}\n能接受無籠飼養：${d.nocage}\n喜歡上牠的原因：${d.why||"（未填）"}`;

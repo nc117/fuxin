@@ -107,7 +107,8 @@ const DEFAULT_CATS = [
    photos:["img/shaoye-1.jpg","img/shaoye-2.jpg","img/shaoye-3.jpg","img/shaoye-4.jpg","img/shaoye-5.jpg"],
    note:"和妹妹小花一起去了大到會迷路的新家。老大只收了一包糖當聘金。"},
   {id:"xiaohua",role:"grad",name:"小花",en:"Xiaohua",breed:"英國短毛貓",color:"藍白雙色",sex:"母",home:"台北",art:"bluewhite",
-   photos:["img/xiaohua-1.jpg","img/xiaohua-2.jpg","img/xiaohua-3.jpg","img/xiaohua-4.jpg","img/xiaohua-5.jpg"],
+   photos:["img/xiaohua-5.jpg","img/xiaohua-1.jpg","img/xiaohua-2.jpg","img/xiaohua-3.jpg","img/xiaohua-4.jpg"],
+   photoPos:["50% 72%"],
    note:"有次全家找她找了好久，最後發現她躺在椅子上睡到翻白肚。"},
 
   {id:"keyi",role:"pet",name:"可以",en:"Keyi",breed:"",art:"gold",note:"傲嬌高冷的小公主，會自己開門，還教會小核桃開門。"},
