@@ -56,9 +56,9 @@ body.calm .sticker{border-width:1px}
 .logo .face{width:52px;height:52px;border-radius:50%;background:var(--butter);border:var(--bw) solid var(--ink);display:grid;place-items:center;overflow:hidden;flex:none}
 .logo b{font-family:var(--round);font-weight:400;font-size:21px;line-height:1.2}
 .tabs{display:flex;flex-direction:column;gap:7px}
-.tabs a{margin-right:20px;padding:8px 16px 8px 22px;border:var(--bw) solid var(--ink);border-left:0;border-radius:0 14px 14px 0;text-decoration:none;font-family:var(--round);font-size:16.5px;transition:margin .15s}
-.tabs a:hover{margin-right:12px}
-.tabs a.on{margin-right:0;font-weight:700;box-shadow:var(--pop)}
+.tabs a{margin-right:52px;padding:8px 16px 8px 22px;border:var(--bw) solid var(--ink);border-left:0;border-radius:0 14px 14px 0;text-decoration:none;font-family:var(--round);font-size:16.5px;transition:margin .15s}
+.tabs a:hover{margin-right:46px}
+.tabs a.on{margin-right:36px;font-weight:700;box-shadow:var(--pop)}
 .side-foot{margin-top:auto;padding:0 22px;display:flex;flex-direction:column;gap:12px}
 .zone{display:block;padding:12px 14px;background:#fff;border:2px dashed var(--ink);border-radius:14px;text-decoration:none}
 .zone b{display:block;font-family:var(--round);font-weight:400;font-size:17px}
@@ -223,9 +223,6 @@ details p{padding:0 0 16px;color:var(--ink2)}
 @media (max-width:980px){
   .side{transform:translateX(-100%);transition:transform .25s;background:var(--paper);box-shadow:0 0 40px rgba(0,0,0,.18)}
   body.menu .side{transform:none}
-  .tabs a{margin-right:52px}
-  .tabs a:hover{margin-right:46px}
-  .tabs a.on{margin-right:36px}
   body.menu .scrim{display:block;position:fixed;inset:0;background:rgba(46,42,79,.35);z-index:25}
   main{margin-left:0}
   .top{display:flex;position:sticky;top:0;z-index:20;justify-content:space-between;align-items:center;padding:10px 5vw;background:rgba(255,253,246,.95);backdrop-filter:blur(8px);border-bottom:2px solid var(--ink)}
