@@ -718,7 +718,7 @@ function bindZoom(c){
 }
 
 /* ============ 5. router ============ */
-const NAV=[["home","首頁","#FFE38A"],["about","關於老大","#BFDDF2"],["kittens","在找家的小貓","#FBD3CE"],["parents","種公和種母","#BFE5CF"],["plan","繁育計畫","#E4E1F2"],["process","回家的路線","#FFE38A"],["family","已經回家的孩子","#BFDDF2"],["visit","約時間來玩","#FBD3CE"]];
+const NAV=[["home","首頁","#FFE38A"],["about","關於老大","#BFDDF2"],["kittens","在找家的小貓","#FBD3CE"],["parents","種公和種母","#BFE5CF"],["process","回家的路線","#E4E1F2"],["family","已經回家的孩子","#FFE38A"],["plan","繁育計畫","#BFDDF2"],["visit","約時間來玩","#FBD3CE"]];
 function navKey(h){ if(!h.startsWith("cat-")) return h; const c=byId(h.slice(4)); if(!c) return ""; return c.role==="kitten"?"kittens":c.role==="grad"?"family":"parents"; }
 function route(){
   const h=(location.hash||"#home").slice(1)||"home";
